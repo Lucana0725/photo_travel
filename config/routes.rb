@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   scope module: :public do
-    get 'users/show' => 'users#show', as: 'user_show'
+    get 'users/mypage' => 'users#show', as: 'mypage'
     get 'users/information' => 'users#edit', as: 'user_edit'
     patch 'users/information' => 'users#update', as: 'user_update'
     get 'users/unsubscribe' => 'users#unsubscribe', as: 'unsubscribe'
