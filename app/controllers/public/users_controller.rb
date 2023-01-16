@@ -21,8 +21,11 @@ class Public::UsersController < ApplicationController
   def withdrawal
     # byebug
     @user = current_user
-    @user.is_deleted = true
-    @user.save
+    # @user.is_deleted = true
+    # @user.save
+    # redirect_to root_path
+    @user.update(is_deleted: true)
+    reset_session
     redirect_to root_path
   end
   
