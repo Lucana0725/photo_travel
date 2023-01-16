@@ -5,6 +5,9 @@ Rails.application.routes.draw do
     patch 'users/information' => 'users#update', as: 'user_update'
     get 'users/unsubscribe' => 'users#unsubscribe', as: 'unsubscribe'
     patch 'users/withdrawal' => 'users#withdrawal', as: 'withdrawal'
+    
+    # 各種resources
+    resources :travels, only: [:new, :create, :index, :show, :destroy]
   end
   
   root to: 'public/homes#top'
