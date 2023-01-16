@@ -1,5 +1,6 @@
 class Public::TravelsController < ApplicationController
   def new
+    @travel = Travel.new
   end
 
   def create
