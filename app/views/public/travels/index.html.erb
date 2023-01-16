@@ -3,12 +3,26 @@
 <h1>Travels</h1>
 
 <% @travels.each do |travel| %>
-  <!--投稿画像-->
-  <%= image_tag travel.get_image(300, 300) %>
+  <!--投稿画像（travels#showへ遷移）-->
+  <div>
+    <%= link_to "#" do %>
+      <%= image_tag travel.get_image(300, 300) %>
+    <% end %>
+  </div>
   
-  <!--投稿タイトル-->
-  <%= travel.title %>
+  <!--投稿者名（users#showへ遷移）-->
+  <div>
+    <%= link_to "#" do %>
+      <%= travel.user.nickname %>
+    <% end %>
+  </div>
   
-  <!--投稿内容-->
-  <%= travel.body %>
+  <!--投稿タイトル（travels#showへ遷移）-->
+  <div>
+    <%= link_to "#" do %>
+      <%= travel.title %>
+    <% end %>
+  </div>
+  
+  <!--投稿場所（県名）-->
 <% end %>
