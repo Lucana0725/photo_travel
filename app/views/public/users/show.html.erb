@@ -1,0 +1,55 @@
+<h1>Profile</h1>
+
+<!--デバッグ用-->
+<div>
+  退会フラグ：
+  <% if current_user.is_deleted %>
+    <%= "退会" %>
+  <% else %>
+    <%= "会員" %>
+  <% end %>
+</div>
+
+<!--ユーザー情報-->
+
+<!--プロフィール画像-->
+<div>
+  <%= image_tag current_user.get_profile_image(200, 200) %>
+</div>
+
+<!--ニックネーム表示-->
+<div>
+  <%= current_user.nickname %>
+</div>
+
+<!--自己紹介文表示(あれば)-->
+<div>
+  Introduction</br>
+  <% if current_user.introduction %>
+    <%= current_user.introduction %>
+  <% end %>
+</div>
+
+<!--フォロー一覧(FontAwesomeでアイコン載せてもいいかも)-->
+<div>
+  <%= link_to "#" do %>
+    フォロー一覧
+  <% end %>
+</div>
+
+<!--フォロワー一覧(FontAwesomeでアイコン載せてもいいかも)-->
+<div>
+  <%= link_to "#" do %>
+    フォロワー一覧
+  <% end %>
+</div>
+
+<!--ユーザー情報編集(FontAwesomeでアイコン載せてもいいかも)-->
+<div>
+  <%= link_to user_update_path do %>
+    プロフィール編集
+  <% end %>
+</div>
+
+<!--以下ログイン中のユーザーの投稿一覧-->
+<h2>My Travels</h2>

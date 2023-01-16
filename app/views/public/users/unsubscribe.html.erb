@@ -1,0 +1,16 @@
+<!--<h1>Public::Users#unsubscribe</h1>-->
+<!--<p>Find me in app/views/public/users/unsubscribe.html.erb</p>-->
+<h1>退会確認</h1>
+
+<div>退会すると、これまでの投稿・フォロー関係など</div>
+<div>あなたの全てのデータが失われます。</div>
+<div>本当に退会しますか？</div>
+
+<div>
+  <%= link_to "いいえ", user_edit_path %>
+  <%= link_to "退会する", withdrawal_path, method: :patch, "data-confirm" => "本当に退会しますか？" %>
+</div>
+
+<!--<#%= form_with @user, url: withdrawal_path, method: :patch do |f| %>-->
+<!--  <#%= f.submit "退会する" %>-->
+<!--<#% end %>-->
