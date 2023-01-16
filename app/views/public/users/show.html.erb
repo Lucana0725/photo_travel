@@ -1,10 +1,20 @@
 <h1>Profile</h1>
 
+<!--デバッグ用-->
+<div>
+  退会フラグ：
+  <% if current_user.is_deleted %>
+    <%= "退会" %>
+  <% else %>
+    <%= "会員" %>
+  <% end %>
+</div>
+
 <!--ユーザー情報-->
 
 <!--プロフィール画像-->
 <div>
-  <%= image_tag @user.get_profile_image(200, 200) %>
+  <%= image_tag current_user.get_profile_image(200, 200) %>
 </div>
 
 <!--ニックネーム表示-->
