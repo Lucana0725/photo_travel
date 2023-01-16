@@ -1,9 +1,9 @@
 <h1>Profile Edit</h1>
 
-<%= form_with model: @user, url: user_update_path, method: :@patch do |f| %>
+<%= form_with model: @user, url: user_update_path, method: :patch do |f| %>
   <div>
-    <%= f.label :image, "プロフィール画像" %></br>
-    <%= f.file_field :image, accept: "image/*" %>
+    <%= f.label :profile_image, "プロフィール画像" %></br>
+    <%= f.file_field :profile_image, accept: "image/*" %>
   </div>
   <div>
     <%= f.label :nickname, "ニックネーム" %></br>
