@@ -7,7 +7,7 @@
 <div>本当に退会しますか？</div>
 
 <div>
-  <%= link_to "いいえ", user_edit_path %>
+  <%= link_to "いいえ", edit_user_path(current_user.id) %>
   <%= link_to "退会する", withdrawal_path, method: :patch, "data-confirm" => "本当に退会しますか？" %>
 </div>
 

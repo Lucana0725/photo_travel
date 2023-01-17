@@ -2,12 +2,12 @@
 
 <!--デバッグ用-->
 <div>
-  退会フラグ：
-  <% if current_user.is_deleted %>
-    <%= "退会" %>
-  <% else %>
-    <%= "会員" %>
-  <% end %>
+  <!--退会フラグ：-->
+  <!--<#% if current_user.is_deleted %>-->
+  <!--  <#%= "退会" %>-->
+  <!--<#% else %>-->
+  <!--  <#%= "会員" %>-->
+  <!--<#% end %>-->
 </div>
 
   <!--ユーザー情報-->
@@ -45,7 +45,8 @@
   
   <!--ユーザー情報編集(FontAwesomeでアイコン載せてもいいかも)-->
   <div>
-    <%= link_to user_update_path do %>
+    <!--<#%= link_to user_update_path do %>-->
+    <%= link_to edit_user_path do %>
       プロフィール編集
     <% end %>
   </div>

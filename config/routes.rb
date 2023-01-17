@@ -1,14 +1,5 @@
 Rails.application.routes.draw do
-  scope module: :public do
-    get 'users/mypage' => 'users#show', as: 'mypage'
-    get 'users/information' => 'users#edit', as: 'user_edit'
-    patch 'users/information' => 'users#update', as: 'user_update'
-    get 'users/unsubscribe' => 'users#unsubscribe', as: 'unsubscribe'
-    patch 'users/withdrawal' => 'users#withdrawal', as: 'withdrawal'
-    
-    # 各種resources
-    resources :travels, only: [:new, :create, :index, :show, :destroy]
-  end
+  
   
   root to: 'public/homes#top'
   get 'about' => 'public/homes#about'
@@ -25,7 +16,17 @@ Rails.application.routes.draw do
   devise_for :admin, skip: [:registrations, :passwords], controllers: {
     sessions: "admin/sessions"
   }
-  
+  scope module: :public do
+    # get 'users/mypage' => 'users#show', as: 'mypage'
+    # get 'users/information' => 'users#edit', as: 'user_edit'
+    # patch 'users/information' => 'users#update', as: 'user_update'
+    get 'users/unsubscribe' => 'users#unsubscribe', as: 'unsubscribe'
+    patch 'users/withdrawal' => 'users#withdrawal', as: 'withdrawal'
+    
+    # 各種resources
+    resources :users, only: [:show, :edit, :update]
+    resources :travels, only: [:new, :create, :index, :show, :destroy]
+  end
   # namespace :admin do
   #   root to: 'homes#top'
   # end
