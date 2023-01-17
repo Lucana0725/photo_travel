@@ -17,8 +17,8 @@ class Public::TravelsController < ApplicationController
     # @travel = @travels.find(params[:id])
     # @user = User.find(params[:id])
     # @user = User.find(params[:id])
-    @user = current_user
-    user_id = @user.id
+    # @user = current_user
+    # user_id = @user.id
   end
 
   def show
