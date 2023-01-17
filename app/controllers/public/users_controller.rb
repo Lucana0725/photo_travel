@@ -14,7 +14,7 @@ class Public::UsersController < ApplicationController
     # @user = current_user
     @user = User.find(params[:id])
     @user.update!(user_params)
-    redirect_to mypage_path
+    redirect_to user_path
   end
 
   def unsubscribe
