@@ -5,41 +5,37 @@
   <%= render "public/shared/error_messages", resource: resource %>
 
   <div class="field">
-    <%= f.label :profile_image, "プロフィール画像(任意)" %><br />
-    <%= f.file_field :profile_image  %>
-
-  <div class="field">
-    <%= f.label :nickname, "ニックネーム(こちらが表示名となります) *必須" %><br />
+    <%= f.label :nickname, "ニックネーム(こちらが表示名となります)" %><br />
     <%= f.text_field :nickname, autofocus: true %>
   </div>
   
   <div class="field">
-    <%= f.label :last_name, "姓 *必須" %><br />
+    <%= f.label :last_name, "姓" %><br />
     <%= f.text_field :last_name %>
   </div>
   
   <div class="field">
-    <%= f.label :first_name, "名 *必須" %><br />
+    <%= f.label :first_name, "名" %><br />
     <%= f.text_field :first_name %>
   </div>
   
   <div class="field">
-    <%= f.label :last_name_kana, "セイ *必須" %><br />
+    <%= f.label :last_name_kana, "セイ" %><br />
     <%= f.text_field :last_name_kana %>
   </div>
   
   <div class="field">
-    <%= f.label :first_name_kana, "メイ *必須" %><br />
+    <%= f.label :first_name_kana, "メイ" %><br />
     <%= f.text_field :first_name_kana %>
   </div>
   
   <div class="field">
-    <%= f.label :email, "メールアドレス *必須" %><br />
+    <%= f.label :email, "メールアドレス" %><br />
     <%= f.email_field :email, autocomplete: "email" %>
   </div>
 
   <div class="field">
-    <%= f.label :password, "パスワード *必須" %>
+    <%= f.label :password, "パスワード" %>
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> 文字以上)</em>
     <% end %><br />
