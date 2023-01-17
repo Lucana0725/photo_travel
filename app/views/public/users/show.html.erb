@@ -13,20 +13,18 @@
   <!--ユーザー情報-->
   <!--プロフィール画像-->
   <div>
-    <%= image_tag current_user.get_profile_image(200, 200) %>
+    <%= image_tag @user.get_profile_image(200, 200) %>
   </div>
   
   <!--ニックネーム表示-->
   <div>
-    <%= current_user.nickname %>
+    <%= @user.nickname %>
   </div>
   
   <!--自己紹介文表示(あれば)-->
   <div>
     Introduction</br>
-    <% if current_user.introduction %>
-      <%= current_user.introduction %>
-    <% end %>
+    <%= @user.introduction %>
   </div>
   
   <!--フォロー一覧(FontAwesomeでアイコン載せてもいいかも)-->

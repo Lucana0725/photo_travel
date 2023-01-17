@@ -6,24 +6,20 @@
     <!--投稿画像（travels#showへ遷移）-->
     <div>
     <!--<#%= link_to travel_path(current_user.id) do %>-->
-      <%= link_to "#" do %>
+      <%= link_to travel_path(travel.id) do %>
         <%= image_tag travel.get_image(300, 300) %>
       <% end %>
     </div>
     
     <!--投稿者名（users#showへ遷移）-->
     <div>
-      <% if travel.user_id == current_user.id %>
+      <!--<#% if user_signed_in? && current_user.id.to_s == params[:id] %>-->
       <!--<#%= link_to mypage_path(current_user.id) do %>-->
-        <%= link_to user_path(current_user.id) do %>
+        <%= link_to user_path(travel.user.id) do %>
         <!--<#%= link_to "#" do %>-->
           <%= travel.user.nickname %>
         <% end %>
-      <% else %>
-        <%= link_to user_path(travel.user_id) do %>
-          <%= travel.user.nickname %>
-        <% end %>
-      <% end %>
+        
     </div>
     
     <!--投稿タイトル（travels#showへ遷移）-->
