@@ -15,8 +15,8 @@
     <div>
       <!--<#% if user_signed_in? && current_user.id.to_s == params[:id] %>-->
       <!--<#%= link_to mypage_path(current_user.id) do %>-->
+      <!--ユーザーごとのマイページへ-->
         <%= link_to user_path(travel.user.id) do %>
-        <!--<#%= link_to "#" do %>-->
           <%= travel.user.nickname %>
         <% end %>
         

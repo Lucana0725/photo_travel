@@ -21,7 +21,7 @@ class Public::TravelsController < ApplicationController
   end
 
   def show
-    # @travel = Travel.find(params[:id])
+    @travel = Travel.find(params[:id])
   end
 
   def destroy
