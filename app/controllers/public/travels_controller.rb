@@ -14,6 +14,11 @@ class Public::TravelsController < ApplicationController
 
   def index
     @travels = Travel.all
+    # @travel = @travels.find(params[:id])
+    # @user = User.find(params[:id])
+    # @user = User.find(params[:id])
+    @user = current_user
+    user_id = @user.id
   end
 
   def show

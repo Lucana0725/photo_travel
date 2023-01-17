@@ -10,8 +10,7 @@
   <% end %>
 </div>
 
-<!--ログインしているユーザーが自分のuser_idのページを見るときだけ、マイページに飛ぶ-->
-<% if user_signed_in? && current_user.id.to_s == params[:id] %>
+
   <!--ユーザー情報-->
   <!--プロフィール画像-->
   <div>
@@ -55,47 +54,3 @@
   <!--以下ログイン中のユーザーの投稿一覧-->
   <h2>My Travels</h2>
   
-<% else %>
-  <!--ユーザー情報-->
-  <!--プロフィール画像-->
-  <div>
-    <%= image_tag @o_user.get_profile_image(200, 200) %>
-  </div>
-  
-  <!--ニックネーム表示-->
-  <div>
-    <%= @o_user.nickname %>
-  </div>
-  
-  <!--自己紹介文表示(あれば)-->
-  <div>
-    Introduction</br>
-    <% if @o_user.introduction %>
-      <%= @o_user.introduction %>
-    <% end %>
-  </div>
-  
-  <!--フォロー一覧(FontAwesomeでアイコン載せてもいいかも)-->
-  <div>
-    <%= link_to "#" do %>
-      フォロー一覧
-    <% end %>
-  </div>
-  
-  <!--フォロワー一覧(FontAwesomeでアイコン載せてもいいかも)-->
-  <div>
-    <%= link_to "#" do %>
-      フォロワー一覧
-    <% end %>
-  </div>
-  
-  <!--ユーザー情報編集(FontAwesomeでアイコン載せてもいいかも)-->
-  <div>
-    <%= link_to user_update_path do %>
-      プロフィール編集
-    <% end %>
-  </div>
-  
-  <!--以下ログイン中のユーザーの投稿一覧-->
-  <h2>My Travels</h2>
-<% end %>
