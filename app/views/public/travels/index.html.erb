@@ -5,7 +5,7 @@
   <!--<#% if user_signed_in? && current_user.id.to_s == params[:id] %>-->
     <!--投稿画像（travels#showへ遷移）-->
     <div>
-    <!--<#%= link_to travel_path(current_user.id) do %>-->
+      <!--各投稿へのリンク-->
       <%= link_to travel_path(travel.id) do %>
         <%= image_tag travel.get_image(300, 300) %>
       <% end %>
@@ -15,7 +15,7 @@
     <div>
       <!--<#% if user_signed_in? && current_user.id.to_s == params[:id] %>-->
       <!--<#%= link_to mypage_path(current_user.id) do %>-->
-      <!--ユーザーごとのマイページへ-->
+      <!--ユーザーごとのマイページへ遷移-->
         <%= link_to user_path(travel.user.id) do %>
           <%= travel.user.nickname %>
         <% end %>
@@ -24,8 +24,7 @@
     
     <!--投稿タイトル（travels#showへ遷移）-->
     <div>
-      <!--<#%= link_to travel_path(current_user.id) do %>-->
-      <%= link_to "#" do %>
+      <%= link_to travel_path(travel.id) do %>
         <%= travel.title %>
       <% end %>
     </div>
