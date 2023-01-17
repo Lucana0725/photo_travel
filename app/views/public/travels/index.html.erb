@@ -3,6 +3,7 @@
 <h1>Travels</h1>
 
 <% @travels.each do |travel| %>
+<<<<<<< HEAD
 <!--ログインしているユーザーが自分のuser_idのページを見る時はログインユーザー権限のある操作ができるページに飛ぶ-->
   <% if user_signed_in? && current_user.id.to_s == params[:id] %>
     <!--投稿画像（travels#showへ遷移）-->
