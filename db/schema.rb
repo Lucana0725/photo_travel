@@ -70,7 +70,7 @@ ActiveRecord::Schema.define(version: 2023_01_15_043913) do
   create_table "travels", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "title", null: false
-    t.string "body", null: false
+    t.text "body", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

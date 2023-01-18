@@ -5,7 +5,7 @@ class CreateTravels < ActiveRecord::Migration[6.1]
       # 以下追記
       t.integer :user_id, null: false
       t.string  :title, null: false
-      t.string  :body,  null: false
+      t.text  :body,  null: false
       t.timestamps
     end
   end
