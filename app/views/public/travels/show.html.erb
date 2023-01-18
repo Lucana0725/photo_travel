@@ -2,12 +2,13 @@
   <%= link_to travels_path do %>
     ← Go Back
   <% end %>
+  <!--投稿タイトル-->
+  <h1><%= @travel.title %></h1>
+  <%= link_to travel_path, method: :delete, "data-confirm" => "投稿を削除します。よろしいですか？" do %>
+    投稿を削除
+  <% end %>
 </div>
 
-<!--投稿タイトル-->
-<h1>
-  <%= @travel.title %>
-</h1>
 
 <!--写真-->
 <div>

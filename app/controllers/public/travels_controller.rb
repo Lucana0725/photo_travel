@@ -25,6 +25,9 @@ class Public::TravelsController < ApplicationController
   end
 
   def destroy
+    @travel = Travel.find(params[:id])
+    @travel.destroy
+    redirect_to travels_path
   end
 
   
