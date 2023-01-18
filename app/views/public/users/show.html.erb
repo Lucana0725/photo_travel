@@ -1,13 +1,13 @@
 <h1>Profile</h1>
 
-<!--デバッグ用-->
+<!--デバッグ用、後々消す-->
 <div>
-  <!--退会フラグ：-->
-  <!--<#% if current_user.is_deleted %>-->
-  <!--  <#%= "退会" %>-->
-  <!--<#% else %>-->
-  <!--  <#%= "会員" %>-->
-  <!--<#% end %>-->
+  デバッグ用退会フラグ：
+  <% if current_user.is_deleted %>
+    <%= "退会" %>
+  <% else %>
+    <%= "有効" %>
+  <% end %>
 </div>
 
   <!--ユーザー情報-->
@@ -21,9 +21,8 @@
     <%= @user.nickname %>
   </div>
   
-  <!--自己紹介文表示(あれば)-->
+  <!--自己紹介文表示-->
   <div>
-    Introduction</br>
     <%= @user.introduction %>
   </div>
   
@@ -50,4 +49,16 @@
   </div>
   
   <!--以下ログイン中のユーザーの投稿一覧-->
-  <h2>My Travels</h2>
+  <h2>All of Travels</h2>
+  
+  <% @travels.each do |travel| %>
+    <!--投稿写真-->
+    <div>
+      <%= link_to travel_path(travel.id) do %>
+        <%= image_tag travel.get_image(300, 300) %>
+      <% end %>
+    </div>
+    
+    <!--投稿タイトル-->
+    <%= travel.title %>
+  <% end %>
