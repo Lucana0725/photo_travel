@@ -1,7 +1,29 @@
+<div>
+  <%= link_to travels_path do %>
+    ← Go Back
+  <% end %>
+</div>
+
+<!--投稿タイトル-->
 <h1>
   <%= @travel.title %>
 </h1>
 
-<h2>
+<!--写真-->
+<div>
+  <%= image_tag @travel.get_image(700, 700) %>
+</div>
+
+<!--投稿ユーザー(MyPageへのリンク付き)-->
+<div>
+  <%= link_to user_path(@travel.user.id) do %>
+    <%= @travel.user.nickname %>
+  <% end %>
+</div>
+
+<!--投稿内容-->
+<div>
   <%= @travel.body %>
-</h2>
+</div>
+
+<!--地図情報-->
