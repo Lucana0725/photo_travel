@@ -1,5 +1,3 @@
-<!--<h1>Public::Travels#index</h1>-->
-<!--<p>Find me in app/views/public/travels/index.html.erb</p>-->
 <h1>Travels</h1>
 
 <% @travels.each do |travel| %>
@@ -7,25 +5,26 @@
   <!--<#% if user_signed_in? && current_user.id.to_s == params[:id] %>-->
     <!--投稿画像（travels#showへ遷移）-->
     <div>
-      <!--<#%= link_to travel_path(current_user.id) do %>-->
-      <%= link_to "#" do %>
+      <!--各投稿へのリンク-->
+      <%= link_to travel_path(travel.id) do %>
         <%= image_tag travel.get_image(300, 300) %>
       <% end %>
     </div>
     
     <!--投稿者名（users#showへ遷移）-->
     <div>
+      <!--<#% if user_signed_in? && current_user.id.to_s == params[:id] %>-->
       <!--<#%= link_to mypage_path(current_user.id) do %>-->
-      <%= link_to "#" do %>
-      <!--<#%= link_to "#" do %>-->
-        <%= travel.user.nickname %>
-      <% end %>
+      <!--ユーザーごとのマイページへ遷移-->
+        <%= link_to user_path(travel.user.id) do %>
+          <%= travel.user.nickname %>
+        <% end %>
+        
     </div>
     
     <!--投稿タイトル（travels#showへ遷移）-->
     <div>
-      <!--<#%= link_to travel_path(current_user.id) do %>-->
-      <%= link_to "#" do %>
+      <%= link_to travel_path(travel.id) do %>
         <%= travel.title %>
       <% end %>
     </div>
