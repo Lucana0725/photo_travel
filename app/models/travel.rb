@@ -2,6 +2,8 @@ class Travel < ApplicationRecord
   # アソシエーション
   belongs_to :user
   
+  has_many :maps
+  
   # 投稿画像を:imageで保持
   has_one_attached :image
   

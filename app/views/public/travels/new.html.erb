@@ -16,3 +16,59 @@
   
   <%= f.submit "投稿する" %>
 <% end %>
+
+<!--マップ-->
+<h2>Map</h2>
+
+<div id="map"></div>
+<style>
+  #map {
+    height: 500px;
+    width: 600px;
+  }
+</style>
+
+<script>
+  let map
+  // let myLatLag
+  
+  function initMap() {
+    // geocoder = new google.maps.Geocoder()
+    myLatLag = {lat: 35.68090045006303, lng: 139.76690798417752}
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: myLatLag,
+      zoom: 12
+    });
+  }
+</script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY'] %>&callback=initMap" async defer></script>
+
+
+<!--<h2>gmap</h2>-->
+<!--<div id='map'></div>-->
+
+<!--<style>-->
+<!--#map {-->
+<!--  height: 600px;-->
+<!--  width: 600px;-->
+<!--}-->
+<!--</style>-->
+
+<!--<script>-->
+<!--let map-->
+
+<!--function initMap(){-->
+<!--  geocoder = new google.maps.Geocoder()-->
+
+<!--  map = new google.maps.Map(document.getElementById('map'), {-->
+<!--    center: {lat: 40.7828, lng:-73.9653},-->
+<!--    zoom: 12,-->
+<!--  });-->
+
+<!--  marker = new google.maps.Marker({-->
+<!--    position:  {lat: 40.7828, lng:-73.9653},-->
+<!--    map: map-->
+<!--  });-->
+<!--}-->
+<!--</script>-->
+<!--<script src="https://maps.googleapis.com/maps/api/js?key=<#%= ENV['GOOGLE_API_KEY'] %>&callback=initMap" async defer></script>-->
