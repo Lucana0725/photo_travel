@@ -16,13 +16,14 @@
         <!--ユーザーログイン時のヘッダー-->
         <% if user_signed_in? %>
           <li>
-            <%= link_to "Travels", "#" %>
+            <%= link_to "Travels", travels_path %>
           </li>
           <li>
-            <%= link_to "My Page", mypage_path %>
+            <!--<#%= link_to "My Page", mypage_path %>-->
+            <%= link_to "My Page", user_path(current_user.id) %>
           </li>
           <li>
-            <%= link_to "New Travel", "#" %>
+            <%= link_to "New Travel", new_travel_path %>
           </li>
           <li>
             <%= link_to "Log Out", destroy_user_session_path, method: :delete %>

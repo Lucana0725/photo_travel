@@ -1,17 +1,18 @@
 class Public::UsersController < ApplicationController
   def show
-    @user = current_user
+    @user = User.find(params[:id])
+    @travels = @user.travels  # users#showでユーザー毎の全ての投稿を表示
   end
 
   def edit
-    @user = current_user
+    @user = User.find(params[:id])
   end
 
   def update
     # byebug
-    @user = current_user
+    @user = User.find(params[:id])
     @user.update!(user_params)
-    redirect_to mypage_path
+    redirect_to user_path
   end
 
   def unsubscribe
@@ -20,7 +21,7 @@ class Public::UsersController < ApplicationController
 
   def withdrawal
     # byebug
-    @user = current_user
+    @user = User.find(params[:id])
     # @user.is_deleted = true
     # @user.save
     # redirect_to root_path

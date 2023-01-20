@@ -59,3 +59,8 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise'
 
 gem 'enum_help'
+
+gem 'dotenv-rails'
+
+gem 'geocoder'
+gem 'gon'

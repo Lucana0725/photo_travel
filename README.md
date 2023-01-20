@@ -28,5 +28,11 @@
 - IDE：Cloud9
 
 ## 使用素材
-- 外部サービスの画像素材・音声素材を使用した場合は、必ずサービス名とURLを明記してください。
+<!--- 外部サービスの画像素材・音声素材を使用した場合は、必ずサービス名とURLを明記してください。-->
+- O-DAN
+    - https://o-dan.net/ja/
+- FIAT
+    - https://www.fiat-auto.co.jp/ciao/500-roundtable/
+- トヨタカローラ埼玉
+    - https://www.corolla-saitama.jp/c/magazine/24
 - 使用しない場合は、使用素材の項目をREADMEから削除してください。

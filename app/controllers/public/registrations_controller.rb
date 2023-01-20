@@ -52,7 +52,7 @@ class Public::RegistrationsController < Devise::RegistrationsController
   # end
   # ユーザー新規登録時のDBへのデータ(カラム)送信を許可する内容
   def configure_permitted_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:nickname, :last_name, :first_name, :last_name_kana, :first_name_kana])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:profile_image, :nickname, :last_name, :first_name, :last_name_kana, :first_name_kana])
   end
 
   # The path used after sign up.
@@ -61,7 +61,8 @@ class Public::RegistrationsController < Devise::RegistrationsController
   # end
   # 新規登録処理後の遷移先
   def after_sign_up_path_for(resource)
-    about_path
+    # mypage_path
+    user_path(current_user.id)
   end
 
   # The path used after sign up for inactive accounts.
