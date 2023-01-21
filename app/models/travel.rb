@@ -1,12 +1,13 @@
 class Travel < ApplicationRecord
   # アソシエーション
   belongs_to :user
-  
-  has_many :maps
-  
+
+  geocoded_by :address
+  after_validation :geocode
+
   # 投稿画像を:imageで保持
   has_one_attached :image
-  
+
   # 投稿画像の取得
   def get_image(width, height)
     unless image.attached?
