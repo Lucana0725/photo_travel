@@ -13,10 +13,19 @@
     <%= f.label :body, "内容" %></br>
     <%= f.text_area :body %>
   </div>
+  <!--マップの住所入力系-->
+  <!--<div class="input-field">-->
+  <!--  <input type="text" id="address">-->
+  <!--</div>  -->
+
   <!--マップ-->
   <div>
-    <%= f.label :map, "住所入力" %></br>
-    <%= f.text_field :address %>  <!--住所入力欄-->
+    <%= f.label :address, "場所" %></br>
+    <%= f.text_field :address, placeholder: "地名、施設名などを入力するか、地図をクリックしてください。" %></br>  <!--住所入力欄-->
+    <!--<a class="btn" onclick="codeAddress()">地図検索</a></br>-->
+    <button type="button" onclick="codeAddress()">地図検索</button>
+    <!--<a id="del" class="btn marker-delete right" onclick="deleteMarker()">ピンの削除</a>-->
+    <button id="del" class="btn" onclick="deleteMarker();">ピンの削除</button>
     <%= f.hidden_field :latitude %>  <!--緯度を取得できるようにする(デベロッパーツールで地図(住所入力欄)をクリックするとhiddenのidのところに自動的に(Model名 + 指定カラム名)が入る仕組みになっている。)-->
     <%= f.hidden_field :longitude %>
   </div>
@@ -26,6 +35,7 @@
   <%= f.submit "投稿する" %>
 <% end %>
 
+
 <style>
   #map {
     height: 500px;
@@ -34,43 +44,67 @@
 </style>
 
 <script>
-  var marker
-  var myLatLng
-  var map
-  var map_lat
-  var map_lng
+var marker
+var myLatLng
+var map
+var map_lat
+var map_lng
 
-  function initMap(){
-     myLatLng = {lat: 35.68090045006303, lng: 139.76690798417752}
-     marker = new google.maps.Marker();
+function initMap(){
+   myLatLng = {lat: 35.68090045006303, lng: 139.76690798417752}
+   marker = new google.maps.Marker();
 
-     // デベロッパーツールで地図(住所入力欄)をクリックするとhiddenのidのところに自動的に(Model名 + form_withでの指定カラム名(今回は:latitude, :longitude))が入る仕組みになっている。これを使用してgetElementByIdのidを指定する。
-    map_lat = document.getElementById('travel_latitude')  // < form_with >の< f.hidden_field >で取得したlatitudeを取得、map_latで保持。
-    map_lng = document.getElementById('travel_longitude')  // < form_with >の< f.hidden_field >で取得したlatitudeを取得、map_lngで保持。
-     map = new google.maps.Map(document.getElementById('map'), {
-    center: myLatLng,
-    zoom: 12
-    });
+   // デベロッパーツールで地図(住所入力欄)をクリックするとhiddenのidのところに自動的に(Model名 + form_withでの指定カラム名(今回は:latitude, :longitude))が入る仕組みになっている。これを使用してgetElementByIdのidを指定する。
+  map_lat = document.getElementById('travel_latitude')  // < form_with >の< f.hidden_field >で取得したlatitudeを取得、map_latで保持。
+  map_lng = document.getElementById('travel_longitude')  // < form_with >の< f.hidden_field >で取得したlatitudeを取得、map_lngで保持。
+   map = new google.maps.Map(document.getElementById('map'), {
+  center: myLatLng,
+  zoom: 12
+  });
 
-   google.maps.event.addListener(map, 'click', mylistener);
+ google.maps.event.addListener(map, 'click', mylistener);
 
-      //クリックしたときの処理
-    function mylistener(event){
-      //markerの位置を設定
-      //event.latLng.lat()でクリックしたところの緯度を取得
-      marker.setPosition(new google.maps.LatLng(event.latLng.lat(), event.latLng.lng()));
-      //marker設置
+    //クリックしたときの処理
+  function mylistener(event){
+    //markerの位置を設定
+    //event.latLng.lat()でクリックしたところの緯度を取得
+    marker.setPosition(new google.maps.LatLng(event.latLng.lat(), event.latLng.lng()));
+    //marker設置
+    marker.setMap(map);
+    map_lat.value = event.latLng.lat();
+    map_lng.value = event.latLng.lng();
+  }
+}
+
+// マーカーの削除
+function deleteMarker(){
+  marker.setMap(null);
+  map_lat.value = "";
+  map_lng.value = "";
+}
+
+// 住所や地名入力で座標を取得、ピンの設置
+function codeAddress() {
+  geocoder = new google.maps.Geocoder()
+  let inputAddress = document.getElementById('travel_address').value;  // デベロッパーツールで地図上部の入力欄をみてみたらidにtravel_addressが入っていたのでそれを指定してみた
+  geocoder.geocode({
+    'address': inputAddress,
+    'region': 'jp'
+  }, function(results, status) {
+    if(status == 'OK') {
+      map.setCenter(results[0].geometry.location);
+      map_result = results[0].geometry.location;
+      map_lat.value = map_result.lat();
+      map_lng.value = map_result.lng();
+      marker.setPosition(new google.maps.LatLng(map_result.lat(), map_result.lng()));
       marker.setMap(map);
-      map_lat.value = event.latLng.lat();
-      map_lng.value = event.latLng.lng();
+      console.log(map_lat.value, map_lng.value);
+    } else {
+      alert('該当する結果がありませんでした。');
+      initMap();
     }
-  }
-  function deleteMarker(){
-    marker.setMap(null);
-    map_lat.value = "";
-    map_lng.value = "";
-  }
-
+  });
+}
 
 
 </script>
