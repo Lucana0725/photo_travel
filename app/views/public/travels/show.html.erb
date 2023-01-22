@@ -28,3 +28,39 @@
 </div>
 
 <!--地図情報-->
+<div class="show">
+  <div class="show_address">
+    <%= @travel.address %>
+  </div>
+  <div class="show_maps" id="show_map"></div>
+</div>
+
+<style>
+  #show_map {
+    width: 600px;
+    height: 500px;
+  }
+</style>
+
+<script>
+  var marker
+  var myLatLng
+  var map
+  var map_lat
+  var map_lng
+  
+  function initMap(){
+     myLatLng = {lat: <%= @travel.latitude %>, lng: <%= @travel.longitude %>}
+     marker = new google.maps.Marker();
+  
+     // デベロッパーツールで地図(住所入力欄)をクリックするとhiddenのidのところに自動的に(Model名 + form_withでの指定カラム名(今回は:latitude, :longitude))が入る仕組みになっている。これを使用してgetElementByIdのidを指定する。
+    map = new google.maps.Map(document.getElementById('show_map'), {
+    center: myLatLng,
+    zoom: 12
+    });
+    marker.setPosition(myLatLng);
+    marker.setMap(map);
+  }
+
+
+</script>
