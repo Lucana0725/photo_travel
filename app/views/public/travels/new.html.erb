@@ -25,7 +25,7 @@
     <!--<a class="btn" onclick="codeAddress()">地図検索</a></br>-->
     <button type="button" onclick="codeAddress()">地図検索</button>
     <!--<a id="del" class="btn marker-delete right" onclick="deleteMarker()">ピンの削除</a>-->
-    <button id="del" class="btn" onclick="deleteMarker();">ピンの削除</button>
+    <button id="del" class="btn" type="button" onclick="deleteMarker();">ピンの削除</button>
     <%= f.hidden_field :latitude %>  <!--緯度を取得できるようにする(デベロッパーツールで地図(住所入力欄)をクリックするとhiddenのidのところに自動的に(Model名 + 指定カラム名)が入る仕組みになっている。)-->
     <%= f.hidden_field :longitude %>
   </div>
