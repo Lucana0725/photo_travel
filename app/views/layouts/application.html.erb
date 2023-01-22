@@ -3,8 +3,8 @@
   <head>
     <title>PhotoTravel</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= include_gon(init: true) %>
-    
+    <%= include_gon(init: true) %>  <!--gonの使用を許可-->
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -48,5 +48,6 @@
       </ul>
     </header>
     <%= yield %>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY'] %>&callback=initMap" async defer></script>  <!--ここに記述することで全てのページでGoogleMapを読み込むことができるようになる-->
   </body>
 </html>
