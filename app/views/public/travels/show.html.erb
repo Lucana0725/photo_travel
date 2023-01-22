@@ -32,7 +32,7 @@
   <div class="show_address">
     <%= @travel.address %>
   </div>
-  <div class="show_maps" id="show_map"></div>
+  <div class="show_maps" id="show_map"></div>  <!--マップ表示用。id="map"でもOK-->
 </div>
 
 <style>
@@ -50,16 +50,16 @@
   var map_lng
   
   function initMap(){
-     myLatLng = {lat: <%= @travel.latitude %>, lng: <%= @travel.longitude %>}
-     marker = new google.maps.Marker();
+    myLatLng = {lat: <%= @travel.latitude %>, lng: <%= @travel.longitude %>}  // gonを利用してnew時に保存した:latitude, :longitudeをmyLatLngで保持
+    marker = new google.maps.Marker();
   
      // デベロッパーツールで地図(住所入力欄)をクリックするとhiddenのidのところに自動的に(Model名 + form_withでの指定カラム名(今回は:latitude, :longitude))が入る仕組みになっている。これを使用してgetElementByIdのidを指定する。
-    map = new google.maps.Map(document.getElementById('show_map'), {
-    center: myLatLng,
+    map = new google.maps.Map(document.getElementById('show_map'), {  // マップ表示の<div class="show_maps" id="show_map"></div>を取得
+    center: myLatLng,  // マップのセンターを上で定義したmyLatLngで表示
     zoom: 12
     });
-    marker.setPosition(myLatLng);
-    marker.setMap(map);
+    marker.setPosition(myLatLng);  // マーカーをmyLatLngの位置にセット
+    marker.setMap(map);  // マーカーを地図上に表示
   }
 
 
