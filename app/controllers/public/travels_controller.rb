@@ -34,7 +34,7 @@ class Public::TravelsController < ApplicationController
   protected
   
   def travel_params
-    params.require(:travel).permit(:user_id, :image, :title, :body)
+    params.require(:travel).permit(:user_id, :image, :title, :body, :latitude, :longitude)
   end
 
 end
