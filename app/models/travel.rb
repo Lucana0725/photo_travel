@@ -1,9 +1,17 @@
 class Travel < ApplicationRecord
   # アソシエーション
   belongs_to :user
+  
+  has_many :favorites, dependent: :destroy
 
   geocoded_by :address
   after_validation :geocode
+  
+  # 引数で渡されるuser_idを使って、そのユーザーidがFavoritesテーブル内に存在するかどうかを調べる
+  def favorited_by?(user)
+    favorites.where(user_id: user.id).exists?
+  end
+  
 
   # 投稿画像を:imageで保持
   has_one_attached :image
