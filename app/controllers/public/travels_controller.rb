@@ -8,8 +8,11 @@ class Public::TravelsController < ApplicationController
     @user = current_user  # ユーザー情報の保持
     @travel = Travel.new(travel_params)
     @travel.user_id = current_user.id  # アソシエーションの関係で@travelにはユーザーが必要なので
-    @travel.save!
-    redirect_to travels_path
+    if @travel.save!
+      redirect_to travels_path
+    else
+      redirect_to new_travel_path
+    end
   end
 
   def index
@@ -22,6 +25,10 @@ class Public::TravelsController < ApplicationController
 
   def show
     @travel = Travel.find(params[:id])
+    @lat = @travel.latitude
+    @lng = @travel.longitude
+    gon.lat = @lat
+    gon.lng = @lng
   end
 
   def destroy
@@ -34,7 +41,7 @@ class Public::TravelsController < ApplicationController
   protected
   
   def travel_params
-    params.require(:travel).permit(:user_id, :image, :title, :body)
+    params.require(:travel).permit(:user_id, :image, :title, :body, :latitude, :longitude)
   end
 
 end
