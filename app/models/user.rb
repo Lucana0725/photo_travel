@@ -6,6 +6,7 @@ class User < ApplicationRecord
          
   # アソシエーション
   has_many :travels, dependent: :destroy
+  has_many :favorites, dependent: :destroy
   
   # プロフィール画像を:profile_imageにて保持
   has_one_attached :profile_image
