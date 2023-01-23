@@ -2,6 +2,8 @@
   <!--一つ前のページに戻る(投稿一覧に戻るのではなく、travels#indexからtravels#showへアクセスしたらtravels#indexへ、users#showからtravels#showへアクセスしたらusers#showへ戻る)-->
   <%= link_to "← Go Back", :back %>
   
+  <span>※表示されている投稿データは全て架空のダミーです。</span>
+  
   <!--投稿タイトル-->
   <h1><%= @travel.title %></h1>
   <%= link_to travel_path, method: :delete, "data-confirm" => "投稿を削除します。よろしいですか？" do %>
