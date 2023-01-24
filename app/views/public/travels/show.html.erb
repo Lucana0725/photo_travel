@@ -48,7 +48,25 @@
   <% end %>
 <% end %>
 
-
+<!--コメント関係-->
+<div>
+  <!--コメント件数とコメント内容の表示-->
+  <p>コメント件数：<%= @comments.count %>件</p>
+  <% @comments.each do |comment| %>
+    <%= image_tag comment.user.get_profile_image(100, 100) %>
+    <%= comment.user.nickname %>
+    <%= comment.comment_body %>
+    <% if comment.user == current_user %>
+      <%= link_to "削除", travel_comment_path(comment.travel, comment), method: :delete, "data-confirm" => "コメントを削除します。よろしいですか？" %>
+    <% end %>
+  <% end %>
+</div>
+<div>
+  <%= form_with model: [@travel, @comment], method: :post do |f| %>
+    <%= f.text_area :comment_body, placeholder: "コメントをここに" %>
+    <%= f.submit "コメント送信" %>
+  <% end %>
+</div>
 
 
 
