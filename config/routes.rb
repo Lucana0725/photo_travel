@@ -27,7 +27,7 @@ Rails.application.routes.draw do
     resources :users, only: [:show, :edit, :update]
     resources :travels, only: [:new, :create, :index, :show, :destroy] do
       resource :favorites, only: [:create, :destroy]  # 「いいね」は「投稿(travel)」に対して行われるので、いいねのルーティングは投稿(:travels)に結びつく、親子関係となる(ネスト)
-      resources :comments, only: [:create, :destroy]  # コメントも「いいね」同様、投稿(travel)に対して行われるので、投稿(:travels)に結びつく。よってネスト
+      resources :comments, only: [:create, :destroy]  # コメントも「いいね」同様、投稿(travel)に対して行われるので、投稿(:travels)に結びつく。よってネストとなる。
     end
   end
   # namespace :admin do
