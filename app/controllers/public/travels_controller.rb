@@ -29,6 +29,9 @@ class Public::TravelsController < ApplicationController
     @lng = @travel.longitude
     gon.lat = @lat
     gon.lng = @lng
+    
+    @comment = Comment.new  # コメント新規作成用
+    @comments = @travel.comments  # 紐づくコメントを全て表示する用
   end
 
   def destroy

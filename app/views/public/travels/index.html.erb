@@ -19,7 +19,6 @@
         <%= link_to user_path(travel.user.id) do %>
           <%= travel.user.nickname %>
         <% end %>
-        
     </div>
     
     <!--投稿タイトル（travels#showへ遷移）-->
@@ -27,6 +26,9 @@
       <%= link_to travel_path(travel.id) do %>
         <%= travel.title %>
       <% end %>
+      <!--<span>♥ <%#= @travel.favorites.count %>いいね</span>-->
+      <span>♥ <%= travel.favorites.count %>いいね！</span>
+      <span><%= travel.comments.count %> コメント</span>
     </div>
     
     <!--投稿場所（県名）-->
