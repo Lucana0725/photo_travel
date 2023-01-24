@@ -36,3 +36,5 @@
 - トヨタカローラ埼玉
     - https://www.corolla-saitama.jp/c/magazine/24
 - 使用しない場合は、使用素材の項目をREADMEから削除してください。
+-  Web Car Graphic
+    - https://www.webcg.net/articles/gallery/46448
