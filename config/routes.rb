@@ -25,7 +25,9 @@ Rails.application.routes.draw do
     
     # 各種resources
     resources :users, only: [:show, :edit, :update]
-    resources :travels, only: [:new, :create, :index, :show, :destroy]
+    resources :travels, only: [:new, :create, :index, :show, :destroy] do
+      resource :favorites, only: [:create, :destroy]  # 「いいね」は「投稿(travel)」に対して行われるので、いいねのルーティングは投稿(:travels)に結びつく、親子関係となる(ネスト)
+    end
   end
   # namespace :admin do
   #   root to: 'homes#top'
