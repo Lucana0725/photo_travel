@@ -25,9 +25,7 @@ Rails.application.routes.draw do
 
     # 各種resources
     resources :users, only: [:show, :edit, :update] do
-      # get :favorites, on: :collection
-      # resources :favorites, only: [:index]
-      member do  # 「いいね！一覧」用。"users/n(id)/favorites"というURLにしたいのでmember doを使用。
+      member do
         get :favorites
       end
     end

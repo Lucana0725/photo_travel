@@ -5,7 +5,7 @@ class Public::FavoritesController < ApplicationController
     favorite.save
     redirect_to travel_path(travel)
   end
-  
+
   def destroy
     travel = Travel.find(params[:travel_id])
     favorite = current_user.favorites.find_by(travel_id: travel.id)
