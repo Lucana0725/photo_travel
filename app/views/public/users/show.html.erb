@@ -40,6 +40,11 @@
     <% end %>
   </div>
   
+  <!--いいね一覧-->
+  <div>
+    <%= link_to "いいね！一覧", favorites_user_path(@user) %>
+  </div>
+  
   <!--ユーザー情報編集(FontAwesomeでアイコン載せてもいいかも)-->
   <div>
     <% if @user.id == current_user.id %>  <!--ログインユーザー以外のユーザーマイページでユーザー情報編集のリンクを表示させない-->

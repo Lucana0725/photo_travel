@@ -1,3 +1,11 @@
 <h1>Photo Travel</h1>
 
 <h2>Lastest Travels</h2>
+
+<% @travels.each do |travel| %>
+  <div>
+    <%= image_tag travel.get_image(300, 300) %></br>
+    <%= travel.user.nickname %></br>
+    <%= travel.title %>
+  </div>
+<% end %>
