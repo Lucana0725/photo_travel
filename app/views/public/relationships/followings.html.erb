@@ -1,2 +1,19 @@
-<h1>Public::Relationships#followings</h1>
-<p>Find me in app/views/public/relationships/followings.html.erb</p>
+<h1>フォロー一覧</h1>
+
+<% if @users.exists? %>  <!--@usersは、relationships#followingsにて定義したもの-->
+  <% @users.each do |user| %>
+    <table>
+      <tbody>
+        <tr>
+          <td></td> <!--プロフィール画像-->
+          <td><%= user.nickname %></td>  <!--ニックネーム-->
+          <td></td>  <!--自己紹介文-->
+          <td></td>  <!--フォロー数-->
+          <td></td>  <!--フォロワー数-->
+        </tr>
+      </tbody>
+    </table>
+  <% end %>
+<% else %>
+  <p>ユーザーはいません</p>
+<% end %>
