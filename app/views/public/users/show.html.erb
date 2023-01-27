@@ -28,14 +28,14 @@
   
   <!--フォロー一覧(FontAwesomeでアイコン載せてもいいかも)-->
   <div>
-    <%= link_to "#" do %>
+    <%= link_to user_followings_path(@user) do %>
       フォロー一覧
     <% end %>
   </div>
   
   <!--フォロワー一覧(FontAwesomeでアイコン載せてもいいかも)-->
   <div>
-    <%= link_to "#" do %>
+    <%= link_to user_followers_path(@user) do %>
       フォロワー一覧
     <% end %>
   </div>
