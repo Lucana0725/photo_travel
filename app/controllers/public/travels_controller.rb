@@ -42,7 +42,7 @@ class Public::TravelsController < ApplicationController
       @travels = Travel.where('body LIKE ?', "%#{params[:keyword]}%")
       @keyword = params[:keyword]
     else
-      @travels = Travels.all
+      @travels = Travel.all
     end
   end
 
