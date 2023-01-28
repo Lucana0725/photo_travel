@@ -9,6 +9,36 @@ class User < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :comments, dependent: :destroy
   
+  # フォロー機能のアソシエーション
+  # フォローした、されたの関係
+  has_many :follower, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy  # フォローしている人の取得（Userのfollowerから見た関係）
+  has_many :followed, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy  # フォローされている人の取得（Userのfollowedから見た関係）
+  
+  # フォロー一覧やフォロワー一覧でユーザーを取得、表示するためのアソシエーション
+  has_many :following_user, through: :follower, source: :followed  # 自分がフォローしている人
+  has_many :follower_user, through: :followed, source: :follower  # 自分をフォローしている人（自分がフォローされている人）
+  
+  
+  
+  # フォローしたときの処理
+  def follow(user_id)
+    follower.create(followed_id: user_id)
+  end
+  
+  # フォローを外すときの処理
+  def unfollow(user_id)
+    follower.find_by(followed_id: user_id).destroy
+  end
+  
+  # フォローしているかの判定
+  def following?(user)
+    following_user.include?(user)
+  end
+  
+  
+  
+  
+  
   # プロフィール画像を:profile_imageにて保持
   has_one_attached :profile_image
   

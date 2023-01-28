@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-
-
   root to: 'public/homes#top'
   get 'about' => 'public/homes#about'
 
@@ -28,6 +26,9 @@ Rails.application.routes.draw do
       member do
         get :favorites
       end
+      resources :relationships, only: [:create, :destroy]
+      get 'followings' => 'relationships#followings', as: 'followings'
+      get 'followers' => 'relationships#followers', as: 'followers'
     end
     resources :travels, only: [:new, :create, :index, :show, :destroy] do
       resource :favorites, only: [:create, :destroy]  # 「いいね」は「投稿(travel)」に対して行われるので、いいねのルーティングは投稿(:travels)に結びつく、親子関係となる(ネスト)
