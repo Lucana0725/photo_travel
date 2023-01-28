@@ -5,15 +5,15 @@
     <table>
       <tbody>
         <tr>
-          <td></td> <!--プロフィール画像-->
+          <td><%= image_tag user.get_profile_image(100, 100) %></td> <!--プロフィール画像-->
           <td><%= user.nickname %></td>  <!--ニックネーム-->
-          <td></td>  <!--自己紹介文-->
-          <td></td>  <!--フォロー数-->
-          <td></td>  <!--フォロワー数-->
+          <td><%= user.introduction %></td>  <!--自己紹介文-->
+          <td>フォロー：<%= user.follower.count %></td>  <!--フォロー数-->
+          <td>フォロワー：<%= user.followed.count %></td>  <!--フォロワー数-->
         </tr>
       </tbody>
     </table>
   <% end %>
 <% else %>
-  <p>ユーザーはいません</p>
+  <p>フォローしているユーザーはいません</p>
 <% end %>
