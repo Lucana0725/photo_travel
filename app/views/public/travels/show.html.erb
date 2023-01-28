@@ -6,8 +6,12 @@
   
   <!--投稿タイトル-->
   <h1><%= @travel.title %></h1>
-  <%= link_to travel_path, method: :delete, "data-confirm" => "投稿を削除します。よろしいですか？" do %>
-    投稿を削除
+  
+  <!--投稿の削除-->
+  <% if @travel.user_id == current_user.id %> <!--ログインユーザーは自分の投稿以外は削除できないようにする-->
+    <%= link_to travel_path, method: :delete, "data-confirm" => "投稿を削除します。よろしいですか？" do %>
+      投稿を削除
+    <% end %>
   <% end %>
 </div>
 
