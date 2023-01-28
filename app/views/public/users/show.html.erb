@@ -1,14 +1,13 @@
 <h1>Profile</h1>
 
 <!--デバッグ用、後々消す-->
-<div>
-  デバッグ用退会フラグ：
-  <% if current_user.is_deleted %>
-    <%= "退会" %>
+<% if user_signed_in? %>
+  <% if @user.is_deleted? %>
+    <p>退会</p>
   <% else %>
-    <%= "有効" %>
+    <p>有効</p>
   <% end %>
-</div>
+<% end %>
 
   <!--ユーザー情報-->
   <!--プロフィール画像-->
@@ -26,14 +25,21 @@
     <%= @user.introduction %>
   </div>
   
+  
+  
+  
   <!--フォロー関係-->
-  <% if @user != current_user %>  <!--user/showのユーザーが自分(ログインユーザー)でなければ、フォローボタンの表示をしたい(自分自身をフォローするのは)-->
-    <% if current_user.following?(@user) %>
-      <%= link_to "フォローを外す", user_relationship_path(@user.id), method: :delete %>
-    <% else %>
-      <%= link_to "フォローする", user_relationships_path(@user.id), method: :post %>
+  <% if user_signed_in? %>  <!--未ログイン、トップからのアクセスを禁じる-->
+    <% if @user != current_user %>  <!--user/showのユーザーが自分(ログインユーザー)でなければ、フォローボタンの表示をしたい(自分自身をフォローするのは)-->
+      <% if current_user.following?(@user) %>
+        <%= link_to "フォローを外す", user_relationship_path(@user.id), method: :delete %>
+      <% else %>
+        <%= link_to "フォローする", user_relationships_path(@user.id), method: :post %>
+      <% end %>
     <% end %>
   <% end %>
+  
+  
   
   
   <!--フォロー一覧(FontAwesomeでアイコン載せてもいいかも)-->
@@ -50,12 +56,19 @@
     <% end %>
   </div>
   
+  
+  
+  
   <!--いいね一覧-->
   <div>
     <%= link_to "いいね！一覧", favorites_user_path(@user) %>
   </div>
   
+  
+  
+  
   <!--ユーザー情報編集(FontAwesomeでアイコン載せてもいいかも)-->
+  <% if user_signed_in? %>  <!--未ログイン、トップページからのアクセスを禁じる-->
   <div>
     <% if @user.id == current_user.id %>  <!--ログインユーザー以外のユーザーマイページでユーザー情報編集のリンクを表示させない-->
       <%= link_to edit_user_path do %>
@@ -63,6 +76,10 @@
       <% end %>
     <% end %>
   </div>
+  <% end %>
+  
+  
+  
   
   <!--以下ログイン中のユーザーの投稿一覧-->
   <h2>All of Travels</h2>
