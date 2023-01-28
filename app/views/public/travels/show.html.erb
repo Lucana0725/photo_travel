@@ -32,6 +32,9 @@
 <div>
   <%= @travel.body %>
 </div>
+<div>
+  投稿日：<%= @travel.created_at.strftime('%Y年%m月%d日 %H時%M分') %>
+</div>
 
 <!--地図情報-->
 <div class="show">

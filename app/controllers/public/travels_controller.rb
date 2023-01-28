@@ -16,11 +16,8 @@ class Public::TravelsController < ApplicationController
   end
 
   def index
-    @travels = Travel.all
-    # @travel = @travels.find(params[:id])
-    # @user = User.find(params[:id])
-    # @user = current_user
-    # user_id = @user.id
+    # @travels = Travel.all
+    @travels = Travel.order('created_at DESC')  # 投稿を新しい順に並べる
   end
 
   def show
