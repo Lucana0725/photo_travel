@@ -1,7 +1,7 @@
 <h2>検索結果 "<%= @keyword %>"</h2>
 
 <ul>
-  <% @users.each do |user| %>
+  <% @users.each do |user| %>  <!--users#searchで定義した@usersを使用-->
   <li>
     <%= link_to user_path(user) do %>
       <%= image_tag user.get_profile_image(100, 100) %>

@@ -53,6 +53,8 @@
       <%= f.text_field :keyword %>
       <%= f.submit "ユーザー検索" %>
     <% end %>
+    
+    <!--キーワード検索フォーム-->
     <%= form_with url: search_travels_path, method: :get do |f| %>
       <%= f.text_field :keyword %>
       <%= f.submit "キーワード" %>
