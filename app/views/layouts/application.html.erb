@@ -48,6 +48,11 @@
         <% end %>
       </ul>
     </header>
+    <!--ユーザー検索用フォーム-->
+    <%= form_with url: search_users_path, method: :get do |f| %>
+      <%= f.text_field :keyword %>
+      <%= f.submit "ユーザー検索" %>
+    <% end %>
     <%= yield %>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY'] %>&callback=initMap" async defer></script>  <!--ここに記述することで全てのページでGoogleMapを読み込むことができるようになる-->
   </body>
