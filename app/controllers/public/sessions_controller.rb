@@ -11,15 +11,8 @@ class Public::SessionsController < Devise::SessionsController
   end
 
   # ゲストログイン用アクション
-  def guest_sign_in
-    user = User.find_or_create_by(email: 'guest@example.com') do |user|
-      user.password = SecureRandom.urlsafe_base64
-      user.nickname = 'ゲスト'
-      user.last_name = 'ゲスト'
-      user.first_name = '太郎'
-      user.last_name_kana = 'ゲスト'
-      user.first_name_kana = 'タロウ'
-    end
+  def guest_sign_in  # User.rbにてユーザーデータを定義。そちらを使用。
+    user = User.guest
     sign_in user
     redirect_to root_path, notice: 'ゲストユーザーとしてログインしました。'
   end
