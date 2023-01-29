@@ -38,6 +38,16 @@ class Public::UsersController < ApplicationController
     favorites = Favorite.where(user_id: @user.id).pluck(:travel_id)
     @favorite_travels = Travel.find(favorites)
   end
+  
+  # ユーザー検索用アクション
+  def search
+    if params[:keyword].present?
+      @users = User.where('nickname LIKE ?', "%#{params[:keyword]}%")
+      @keyword = params[:keyword]
+    else
+      @users = User.all
+    end
+  end
 
 
   private

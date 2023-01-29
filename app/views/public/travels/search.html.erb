@@ -1,0 +1,16 @@
+<h2>検索結果 "<%= @keyword %>"</h2>
+
+<% @travels.each do |travel| %>  <!--travels#searchで定義した@travelsを使用-->
+  <div>
+    <%= link_to user_path(travel.user.id) do %>
+      <%= image_tag travel.user.get_profile_image(100, 100) %>
+      <%= travel.user.nickname %>
+    <% end %>
+  </div>
+  <div>
+    <%= link_to travel_path(travel.id) do %>
+      <%= image_tag travel.get_image(700, 700) %></br>
+      <%= travel.title %>
+    <% end %>
+  </div>
+<% end %>

@@ -16,6 +16,23 @@
   <body>
     <header>
       <ul>
+        <% unless hide_search_bar? %>  <!--app/controllers/helpers/application_helper.rbにて定義したhide_search_bar?の呼び出し-->
+          <!--ユーザー検索用フォーム-->
+          <%= form_with url: search_users_path, method: :get do |f| %>
+            <li>
+              <%= f.text_field :keyword %>
+              <%= f.submit "ユーザー検索" %>
+            </li>
+          <% end %>
+    
+          <!--キーワード検索フォーム-->
+          <%= form_with url: search_travels_path, method: :get do |f| %>
+            <li>
+              <%= f.text_field :keyword %>
+              <%= f.submit "キーワード" %>
+            </li>
+          <% end %>
+        <% end %>
         <!--ユーザーログイン時のヘッダー-->
         <% if user_signed_in? %>
           <li>
@@ -48,7 +65,11 @@
         <% end %>
       </ul>
     </header>
+    <main>
+    
+    
     <%= yield %>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY'] %>&callback=initMap" async defer></script>  <!--ここに記述することで全てのページでGoogleMapを読み込むことができるようになる-->
+    </main>
   </body>
 </html>

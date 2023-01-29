@@ -36,6 +36,15 @@ class Public::TravelsController < ApplicationController
     @travel.destroy
     redirect_to travels_path
   end
+  
+  def search
+    if params[:keyword].present?
+      @travels = Travel.where('body LIKE ?', "%#{params[:keyword]}%")
+      @keyword = params[:keyword]
+    else
+      @travels = Travel.all
+    end
+  end
 
   
   protected
