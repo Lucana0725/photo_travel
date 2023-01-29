@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   root to: 'public/homes#top'
+  post '/homes/guest_sign_in' => 'public/homes#guest_sign_in'
   get 'about' => 'public/homes#about'
 
   # ユーザー用
