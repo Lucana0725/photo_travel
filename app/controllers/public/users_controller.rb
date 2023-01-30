@@ -23,7 +23,7 @@ class Public::UsersController < ApplicationController
 
   def withdrawal
     # byebug
-    @user = User.find(params[:id])
+    @user = current_user
     # @user.is_deleted = true
     # @user.save
     # redirect_to root_path
