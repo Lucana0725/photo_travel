@@ -1,5 +1,6 @@
 class Public::UsersController < ApplicationController
   before_action :is_matching_login_user, only: [:edit, :update]
+  before_action :check_guest, only: :withdrawal  # ゲストユーザーの退会を禁ずる(withdrawalの時のみcheck_guestを発動)
 
   def show
     @user = User.find(params[:id])
@@ -30,6 +31,14 @@ class Public::UsersController < ApplicationController
     @user.update(is_deleted: true)
     reset_session
     redirect_to root_path
+  end
+  
+  # ゲストユーザーの退会禁止
+  def check_guest
+    user = current_user
+    if user.email == 'guest@example.com'
+      redirect_to root_path, alert: 'ゲストユーザーは削除できません。'
+    end
   end
 
   # いいね！一覧用アクション
