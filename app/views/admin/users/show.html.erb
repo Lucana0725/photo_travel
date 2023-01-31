@@ -1,5 +1,3 @@
-<!--<h1>Admin::Users#show</h1>-->
-<!--<p>Find me in app/views/admin/users/show.html.erb</p>-->
 <h1>
   <%= @user.nickname %> さんの会員情報詳細画面
 </h1>
@@ -38,6 +36,14 @@
   </tr>
   <tr>
     <th>会員ステータス</th>
-    <td><%= @user.is_deleted %></td>
+    <td>
+      <% if @user.is_deleted %>
+        <span class="text-secondary">退会</span>
+      <% else %>
+        <span class="text-success">有効</span>
+      <% end %>
+    </td>
   </tr>
 </table>
+
+<%= link_to "編集する", edit_admin_user_path %>
