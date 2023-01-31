@@ -36,6 +36,18 @@ class User < ApplicationRecord
   end
   
   
+  # ゲストログイン用ユーザーデータ(public/sessions#guest_sign_inにて使用)
+  def self.guest  # クラスメソッド。
+    find_or_create_by(email: 'guest@example.com') do |user|
+      user.password = SecureRandom.urlsafe_base64
+      user.nickname = 'ゲスト'
+      user.last_name = 'ゲスト'
+      user.first_name = '太郎'
+      user.last_name_kana = 'ゲスト'
+      user.first_name_kana = 'タロウ'
+    end
+  end
+  
   
   
   

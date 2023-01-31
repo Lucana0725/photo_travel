@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
   root to: 'public/homes#top'
+  
+  # ゲストログイン用ルーティング
+  devise_scope :user do
+    post '/users/guest_sign_in' => 'public/sessions#guest_sign_in'
+  end
   get 'about' => 'public/homes#about'
 
   # ユーザー用

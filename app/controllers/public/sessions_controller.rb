@@ -10,6 +10,13 @@ class Public::SessionsController < Devise::SessionsController
     root_path
   end
 
+  # ゲストログイン用アクション
+  def guest_sign_in  # User.rbにてユーザーデータを定義。そちらを使用。
+    user = User.guest
+    sign_in user
+    redirect_to root_path, notice: 'ゲストユーザーとしてログインしました。'
+  end
+  
   # GET /resource/sign_in
   # def new
   #   super

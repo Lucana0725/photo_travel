@@ -62,12 +62,15 @@
           <li>
             <%= link_to "Log In", new_user_session_path %>
           </li>
+          <li>
+            <%= link_to "Log In for Guest", users_guest_sign_in_path, method: :post %>
+          </li>
         <% end %>
       </ul>
     </header>
     <main>
-    
-    
+    <%= flash[:notice]%>
+    <%= flash[:alert] %>
     <%= yield %>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY'] %>&callback=initMap" async defer></script>  <!--ここに記述することで全てのページでGoogleMapを読み込むことができるようになる-->
     </main>
