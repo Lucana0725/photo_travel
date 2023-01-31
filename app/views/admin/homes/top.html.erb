@@ -1,1 +1,32 @@
-<h1>Admin Home</h1>
+<div class="container">
+  <div class="row">
+    <h1>登録ユーザー一覧</h1>
+  </div>
+  <div class="row">
+      <table class="table table-sm">
+        <thead>
+          <tr>
+            <th>ユーザーid</th>
+            <th>ユーザー名</th>
+            <th>投稿数</th>
+            <th>フォロー数</th>
+            <th>フォロワー数</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @users.each do |user| %>  <!--admin/homes#topにて定義の@usersを使用-->
+          <tr>
+            <td><%= user.id %></td>
+            <td>
+              <%= image_tag user.get_profile_image(100, 100) %>
+              <%= user.nickname %>
+            </td>
+            <td><%= user.travels.count %></td>  <!--userに紐づく、全てのtravels(アソシエーションを結んでいる)を取得-->
+            <td><%= user.following_user.count %></td>
+            <td><%= user.follower_user.count %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+  </div>
+</div>
