@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  # admin各種resources
+  namespace :admin do
+    resources :users, only: [:show, :edit, :update]
+  end
+  
+  
+  
+  
   # ルートパス。ユーザー用なのでpublic
   root to: 'public/homes#top'
   

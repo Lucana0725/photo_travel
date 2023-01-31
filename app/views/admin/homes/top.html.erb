@@ -18,8 +18,10 @@
           <tr>
             <td><%= user.id %></td>
             <td>
-              <%= image_tag user.get_profile_image(100, 100) %>
-              <%= user.nickname %>
+              <%= link_to admin_user_path(user.id) do  %>  <!--ユーザー詳細情報ページへのリンク-->
+                <%= image_tag user.get_profile_image(100, 100) %>
+                <%= user.nickname %>
+              <% end %>
             </td>
             <td><%= user.travels.count %></td>  <!--userに紐づく、全てのtravels(アソシエーションを結んでいる)を取得-->
             <td><%= user.following_user.count %></td>
