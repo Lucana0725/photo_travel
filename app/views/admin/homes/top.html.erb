@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="row">
+    <h1>登録ユーザー一覧</h1>
+  </div>
+  <div class="row">
+      <table class="table table-hover text-center" style="table-layout:fixed;">
+        <thead>
+          <tr>
+            <th style="width:50px;">ID</th>
+            <th style="width:228px;">ユーザー名</th>
+            <th style="width:100px;">投稿数</th>
+            <th style="width:100px;">フォロー数</th>
+            <th style="width:100px;">フォロワー数</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @users.each do |user| %>  <!--admin/homes#topにて定義の@usersを使用-->
+          <tr style="height:125px;">
+            <td><%= user.id %></td>
+            <td>
+              <%= link_to admin_user_path(user.id) do  %>  <!--ユーザー詳細情報ページへのリンク-->
+                <%= image_tag user.get_profile_image(100, 100) %>
+                <%= user.nickname %>
+              <% end %>
+            </td>
+            <td><%= user.travels.count %></td>  <!--userに紐づく、全てのtravels(アソシエーションを結んでいる)を取得-->
+            <td><%= user.following_user.count %></td>
+            <td><%= user.follower_user.count %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+  </div>
+</div>

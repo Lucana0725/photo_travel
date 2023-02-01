@@ -33,8 +33,8 @@
             </li>
           <% end %>
         <% end %>
-        <!--ユーザーログイン時のヘッダー-->
-        <% if user_signed_in? %>
+        
+        <% if user_signed_in? %>  <!--ユーザーログイン時のヘッダー-->
           <li>
             <%= link_to "Travels", travels_path %>
           </li>
@@ -48,8 +48,9 @@
           <li>
             <%= link_to "Log Out", destroy_user_session_path, method: :delete %>
           </li>
-          <% else %>
-          <!--ユーザー未ログイン時のヘッダー-->
+        <% elsif admin_signed_in? %>  <!--管理者ログイン時のヘッダー-->
+            <li><%= link_to "Log Out", destroy_admin_session_path, method: :delete %></li>
+        <% else %>  <!--ユーザー未ログイン時のヘッダー-->
           <li>
             <%= link_to "Top", root_path %>
           </li>

@@ -1,5 +1,20 @@
 Rails.application.routes.draw do
+  # admin各種resources
+  namespace :admin do
+    resources :users, only: [:show, :edit, :update]
+  end
+  
+  
+  
+  
+  # ルートパス。ユーザー用なのでpublic
   root to: 'public/homes#top'
+  
+  # 管理者用のルート。(publicに当てているのでルートパスではない)
+  get '/admin' => 'admin/homes#top'
+  
+  
+  
   
   # ゲストログイン用ルーティング
   devise_scope :user do
@@ -7,24 +22,36 @@ Rails.application.routes.draw do
   end
   get 'about' => 'public/homes#about'
 
-  # ユーザー用
+
+
+
+  # ユーザー用Devise関連
   # URL /users/sign_in ...
   devise_for :users, skip: [:passwords], controllers: {
     registrations: "public/registrations",
     sessions: 'public/sessions'
   }
 
-  # 管理者用
+
+
+
+  # 管理者用Devise関連
   # URL /admin/sign_in ...
   devise_for :admin, skip: [:registrations, :passwords], controllers: {
     sessions: "admin/sessions"
   }
+  
+  
+  
+  
+  # 各publicルーティング
   scope module: :public do
     # get 'users/mypage' => 'users#show', as: 'mypage'
     # get 'users/information' => 'users#edit', as: 'user_edit'
     # patch 'users/information' => 'users#update', as: 'user_update'
     get 'users/unsubscribe' => 'users#unsubscribe', as: 'unsubscribe'
     patch 'users/withdrawal' => 'users#withdrawal', as: 'withdrawal'
+
 
     # 各種resources
     resources :users, only: [:show, :edit, :update] do
