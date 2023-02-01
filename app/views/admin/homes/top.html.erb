@@ -3,19 +3,19 @@
     <h1>登録ユーザー一覧</h1>
   </div>
   <div class="row">
-      <table class="table table-sm">
+      <table class="table table-hover text-center" style="table-layout:fixed;">
         <thead>
           <tr>
-            <th>ユーザーid</th>
-            <th>ユーザー名</th>
-            <th>投稿数</th>
-            <th>フォロー数</th>
-            <th>フォロワー数</th>
+            <th style="width:50px;">ID</th>
+            <th style="width:228px;">ユーザー名</th>
+            <th style="width:100px;">投稿数</th>
+            <th style="width:100px;">フォロー数</th>
+            <th style="width:100px;">フォロワー数</th>
           </tr>
         </thead>
         <tbody>
         <% @users.each do |user| %>  <!--admin/homes#topにて定義の@usersを使用-->
-          <tr>
+          <tr style="height:125px;">
             <td><%= user.id %></td>
             <td>
               <%= link_to admin_user_path(user.id) do  %>  <!--ユーザー詳細情報ページへのリンク-->
