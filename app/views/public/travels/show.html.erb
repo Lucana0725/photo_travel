@@ -1,98 +1,111 @@
-<div>
-  <!--一つ前のページに戻る(投稿一覧に戻るのではなく、travels#indexからtravels#showへアクセスしたらtravels#indexへ、users#showからtravels#showへアクセスしたらusers#showへ戻る)-->
-  <%= link_to "← Go Back", :back %>
-  
-  <span>※表示されている投稿データは全て架空のダミーです。</span>
-  
-  <!--投稿タイトル-->
-  <h1><%= @travel.title %></h1>
-  
-  <!--投稿の削除-->
-  <% if user_signed_in? %>  <!--未ログインでは投稿の操作は不可能にする-->
-    <% if @travel.user_id == current_user.id %> <!--ログインユーザーは自分の投稿以外は削除できないようにする-->
-      <%= link_to travel_path, method: :delete, "data-confirm" => "投稿を削除します。よろしいですか？" do %>
-        投稿を削除
+<div class="row justify-content-center">
+  <div class="col-9">
+    <span>※表示されている投稿データは全て架空のダミーです。</span>
+    <div>
+      <!--一つ前のページに戻る(投稿一覧に戻るのではなく、travels#indexからtravels#showへアクセスしたらtravels#indexへ、users#showからtravels#showへアクセスしたらusers#showへ戻る)-->
+      <%= link_to "← Go Back", :back %>
+    </div>
+      
+    <div>
+      <!--投稿タイトル-->
+      <h1><%= @travel.title %></h1>
+    </div>
+      
+    <div>
+      <!--投稿の削除-->
+      <% if user_signed_in? %>  <!--未ログインでは投稿の操作は不可能にする-->
+        <% if @travel.user_id == current_user.id %> <!--ログインユーザーは自分の投稿以外は削除できないようにする-->
+          <%= link_to travel_path, method: :delete, "data-confirm" => "投稿を削除します。よろしいですか？" do %>
+            投稿を削除
+          <% end %>
+        <% end %>
       <% end %>
-    <% end %>
-  <% end %>
-</div>
+    </div>
 
-
-
-<!--投稿写真-->
-<div>
-  <%= image_tag @travel.get_image(700, 700) %>
-</div>
-
-
-
-<!--投稿ユーザー(MyPageへのリンク付き)-->
-<div>
-  <%= link_to user_path(@travel.user.id) do %>
-    <%= @travel.user.nickname %>
-  <% end %>
-</div>
-
-
-
-<!--投稿内容-->
-<div>
-  <%= @travel.body %>
-</div>
-<div>
-  投稿日：<%= @travel.created_at.strftime('%Y年%m月%d日 %H時%M分') %>
-</div>
-
-
-
-<!--地図情報-->
-<div class="show">
-  <div class="show_address">
-    <%= @travel.address %>
+  
+    
+    <!--投稿関係-->
+  <div class="row">
+    <div class="col p-3">
+      <!--投稿写真-->
+      <div>
+        <%= image_tag @travel.get_image(700, 700), class: "w-100" %>
+      </div>
+      
+      <!--地図情報-->
+      <div class="show">
+        <div class="show_address">
+          <%= @travel.address %>
+        </div>
+        <div class="show_maps" id="show_map"></div>  <!--マップ表示用。id="map"でもOK-->
+      </div>
+    </div>
+    
+    
+    <div class="col pl-5">
+      <!--投稿ユーザー(MyPageへのリンク付き)-->
+      <div>
+        <%= link_to user_path(@travel.user.id) do %>
+          <%= @travel.user.nickname %>
+        <% end %>
+      </div>
+      
+      
+      
+      <!--投稿内容-->
+      <div>
+        <%= @travel.body %>
+      </div>
+      <div>
+        投稿日：<%= @travel.created_at.strftime('%Y年%m月%d日 %H時%M分') %>
+      </div>
+      
+      
+      
+      
+      <!--いいね関係-->
+      <% if user_signed_in? %>  <!--未ログインではいいね！はできないようにする-->
+        <% if @travel.favorited_by?(current_user) %>  <!--いいねしていれば取消-->
+          <%= link_to travel_favorites_path(@travel), method: :delete do %>
+            ♥ <%= @travel.favorites.count %>いいね！
+          <% end %>
+        <% else %>
+          <%= link_to travel_favorites_path(@travel), method: :post do %>  <!--いいねしていなければ付与-->
+            ♥ <%= @travel.favorites.count %>いいね！
+          <% end %>
+        <% end %>
+      <% end %>
+      
+      
+      
+      <!--コメント関係-->
+      <div>
+        <!--コメント件数とコメント内容の表示-->
+        <p>コメント件数：<%= @comments.count %>件</p>
+        <% @comments.each do |comment| %>
+          <%= image_tag comment.user.get_profile_image(100, 100) %>  <!--コメント主のプロフィール画像-->
+          <%= comment.user.nickname %>  <!--コメント主のニックネーム-->
+          <%= comment.comment_body %>  <!--コメント主のコメント内容-->
+          <!--コメント主であれば、コメントを削除できるようにする-->
+          <% if comment.user == current_user %>
+            <%= link_to "削除", travel_comment_path(comment.travel, comment), method: :delete, "data-confirm" => "コメントを削除します。よろしいですか？" %>
+          <% end %>
+        <% end %>
+      </div>
+      <!--コメントの送信-->
+      <% if user_signed_in? %>  <!--未ログイン時はコメントできないようにする-->
+        <div>
+          <%= form_with model: [@travel, @comment], method: :post do |f| %>
+            <%= f.text_area :comment_body, placeholder: "コメントをここに" %>
+            <%= f.submit "コメント送信" %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
   </div>
-  <div class="show_maps" id="show_map"></div>  <!--マップ表示用。id="map"でもOK-->
-</div>
-
-
-
-<!--いいね関係-->
-<% if user_signed_in? %>  <!--未ログインではいいね！はできないようにする-->
-  <% if @travel.favorited_by?(current_user) %>  <!--いいねしていれば取消-->
-    <%= link_to travel_favorites_path(@travel), method: :delete do %>
-      ♥ <%= @travel.favorites.count %>いいね！
-    <% end %>
-  <% else %>
-    <%= link_to travel_favorites_path(@travel), method: :post do %>  <!--いいねしていなければ付与-->
-      ♥ <%= @travel.favorites.count %>いいね！
-    <% end %>
-  <% end %>
-<% end %>
-
-
-
-<!--コメント関係-->
-<div>
-  <!--コメント件数とコメント内容の表示-->
-  <p>コメント件数：<%= @comments.count %>件</p>
-  <% @comments.each do |comment| %>
-    <%= image_tag comment.user.get_profile_image(100, 100) %>  <!--コメント主のプロフィール画像-->
-    <%= comment.user.nickname %>  <!--コメント主のニックネーム-->
-    <%= comment.comment_body %>  <!--コメント主のコメント内容-->
-    <!--コメント主であれば、コメントを削除できるようにする-->
-    <% if comment.user == current_user %>
-      <%= link_to "削除", travel_comment_path(comment.travel, comment), method: :delete, "data-confirm" => "コメントを削除します。よろしいですか？" %>
-    <% end %>
-  <% end %>
-</div>
-<!--コメントの送信-->
-<% if user_signed_in? %>  <!--未ログイン時はコメントできないようにする-->
-  <div>
-    <%= form_with model: [@travel, @comment], method: :post do |f| %>
-      <%= f.text_area :comment_body, placeholder: "コメントをここに" %>
-      <%= f.submit "コメント送信" %>
-    <% end %>
   </div>
-<% end %>
+</div>
+
 
 
 
@@ -101,8 +114,9 @@
 <!--地図の表示スタイル-->
 <style>
   #show_map {
-    width: 600px;
-    height: 500px;
+    width: 100%;
+    /*height: 500px;*/
+    aspect-ratio: 3 / 2;
   }
 </style>
 
