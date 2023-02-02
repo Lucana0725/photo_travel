@@ -24,8 +24,8 @@
 
 
 
-    <!--投稿関係（ページ左半分）-->
     <div class="row mt-5">
+      <!--投稿関係（ページ左半分）-->
       <div class="col-12 col-md-7">
         <!--投稿写真-->
         <div class="travel-show-img d-flex justify-content-center align-items-center">
@@ -54,7 +54,7 @@
               <% end %>
             </div>
           </div>
-          
+
           <div class="card-body">
             <div>  <!--投稿本文、投稿日の親div-->
               <div>  <!--投稿内容-->
@@ -67,7 +67,7 @@
               </div>
             </div>
           </div>
-          
+
           <div class="card-footer">
           <!--いいね関係-->
           <% if user_signed_in? %>  <!--未ログインではいいね！はできないようにする-->
@@ -86,22 +86,16 @@
 
 
 
-
-
-
-
-
-
-
-
         <!--コメント関係-->
         <div>
           <!--コメント件数とコメント内容の表示-->
           <p>コメント件数：<%= @comments.count %>件</p>
           <% @comments.each do |comment| %>
-            <div>
-              <%= image_tag comment.user.get_profile_image(100, 100) %>  <!--コメント主のプロフィール画像-->
-              <%= comment.user.nickname %>  <!--コメント主のニックネーム-->
+            <div class="d-flex">
+              <%= link_to user_path(@travel.user.id) do %>
+                <%= image_tag comment.user.get_profile_image(72, 72), class: "rounded-circle mr-2" %>  <!--コメント主のプロフィール画像-->
+                <%= comment.user.nickname %>  <!--コメント主のニックネーム-->
+              <% end %>
               <%= simple_format(comment.comment_body) %>  <!--コメント主のコメント内容-->
               <!--コメント主であれば、コメントを削除できるようにする-->
               <% if comment.user == current_user %>
@@ -122,7 +116,6 @@
           </div>
         <% end %>
       </div>
-    </div>
   </div>
 </div>
 
