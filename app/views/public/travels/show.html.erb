@@ -87,20 +87,24 @@
 
 
         <!--コメント関係-->
-        <div>
-          <!--コメント件数とコメント内容の表示-->
-          <p>コメント件数：<%= @comments.count %>件</p>
+        <!--コメント件数とコメント内容の表示-->
+        <p>コメント件数：<%= @comments.count %>件</p>
+        <div class="card">
           <% @comments.each do |comment| %>
-            <div class="d-flex">
+            <div class="d-flex card-body">
               <%= link_to user_path(@travel.user.id) do %>
                 <%= image_tag comment.user.get_profile_image(72, 72), class: "rounded-circle mr-2" %>  <!--コメント主のプロフィール画像-->
                 <%= comment.user.nickname %>  <!--コメント主のニックネーム-->
               <% end %>
-              <%= simple_format(comment.comment_body) %>  <!--コメント主のコメント内容-->
+              <div class="comment-body ml-2">
+                <%= simple_format(comment.comment_body) %>  <!--コメント主のコメント内容-->
+              </div>
               <!--コメント主であれば、コメントを削除できるようにする-->
-              <% if comment.user == current_user %>
-                <%= link_to "削除", travel_comment_path(comment.travel, comment), method: :delete, "data-confirm" => "コメントを削除します。よろしいですか？" %>
-              <% end %>
+              <div class="comment-delete">
+                <% if comment.user == current_user %>
+                  <%= link_to "削除", travel_comment_path(comment.travel, comment), method: :delete, "data-confirm" => "コメントを削除します。よろしいですか？" %>
+                <% end %>
+              </div>
             </div>
           <% end %>
         </div>
