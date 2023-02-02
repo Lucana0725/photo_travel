@@ -1,25 +1,27 @@
 <div class="row justify-content-center">
   <div class="col-9">
     <span>※表示されている投稿データは全て架空のダミーです。</span>
-    <div>
-      <!--一つ前のページに戻る(投稿一覧に戻るのではなく、travels#indexからtravels#showへアクセスしたらtravels#indexへ、users#showからtravels#showへアクセスしたらusers#showへ戻る)-->
-      <%= link_to "← Go Back", :back %>
-    </div>
-
-    <div>
-      <!--投稿タイトル-->
-      <h1><%= @travel.title %></h1>
-    </div>
-
-    <div>
-      <!--投稿の削除-->
-      <% if user_signed_in? %>  <!--未ログインでは投稿の操作は不可能にする-->
-        <% if @travel.user_id == current_user.id %> <!--ログインユーザーは自分の投稿以外は削除できないようにする-->
-          <%= link_to travel_path, method: :delete, "data-confirm" => "投稿を削除します。よろしいですか？" do %>
-            投稿を削除
+    <div class="row">
+      <div class="col-2">
+        <!--一つ前のページに戻る(投稿一覧に戻るのではなく、travels#indexからtravels#showへアクセスしたらtravels#indexへ、users#showからtravels#showへアクセスしたらusers#showへ戻る)-->
+        <%= link_to "← Go Back", :back %>
+      </div>
+  
+      <div class="col-8 text-center">
+        <!--投稿タイトル-->
+        <h1><%= @travel.title %></h1>
+      </div>
+  
+      <div class="col-2 btn btn-danger">
+        <!--投稿の削除-->
+        <% if user_signed_in? %>  <!--未ログインでは投稿の操作は不可能にする-->
+          <% if @travel.user_id == current_user.id %> <!--ログインユーザーは自分の投稿以外は削除できないようにする-->
+            <%= link_to travel_path, method: :delete, "data-confirm" => "投稿を削除します。よろしいですか？" do %>
+              投稿を削除
+            <% end %>
           <% end %>
         <% end %>
-      <% end %>
+      </div>
     </div>
 
 
@@ -58,7 +60,7 @@
           <div class="card-body">
             <div>  <!--投稿本文、投稿日の親div-->
               <div>  <!--投稿内容-->
-                <%= @travel.body %>
+                <%= simple_format(@travel.body) %>
               </div>
               <div class="text-right">
                 <small class="text-black-50">
@@ -102,7 +104,7 @@
               <!--コメント主であれば、コメントを削除できるようにする-->
               <div class="comment-delete">
                 <% if comment.user == current_user %>
-                  <%= link_to "削除", travel_comment_path(comment.travel, comment), method: :delete, "data-confirm" => "コメントを削除します。よろしいですか？" %>
+                  <%= link_to "削除", travel_comment_path(comment.travel, comment), method: :delete, "data-confirm" => "コメントを削除します。よろしいですか？", class: "btn btn-danger" %>
                 <% end %>
               </div>
             </div>
