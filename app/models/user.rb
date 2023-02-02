@@ -54,7 +54,8 @@ class User < ApplicationRecord
   # プロフィール画像を:profile_imageにて保持
   has_one_attached :profile_image
 
-  # プロフィール画像の取得
+
+  # プロフィール画像の取得(丸く表示する為に正方形に切り出す)
   def get_profile_image(width, height)
     unless profile_image.attached?
       file_path = Rails.root.join('app/assets/images/no_image.jpg')
