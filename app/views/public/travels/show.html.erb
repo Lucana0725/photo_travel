@@ -5,12 +5,12 @@
       <!--一つ前のページに戻る(投稿一覧に戻るのではなく、travels#indexからtravels#showへアクセスしたらtravels#indexへ、users#showからtravels#showへアクセスしたらusers#showへ戻る)-->
       <%= link_to "← Go Back", :back %>
     </div>
-      
+
     <div>
       <!--投稿タイトル-->
       <h1><%= @travel.title %></h1>
     </div>
-      
+
     <div>
       <!--投稿の削除-->
       <% if user_signed_in? %>  <!--未ログインでは投稿の操作は不可能にする-->
@@ -22,17 +22,17 @@
       <% end %>
     </div>
 
-  
-    
-    <!--投稿関係-->
+
+
+    <!--投稿関係（ページ左半分）-->
   <div class="row">
     <!--<div class="col p-3 text-center">-->
-    <div class="col p-3">
+    <div class="col-7">
       <!--投稿写真-->
-      <div>
+      <div class="travel-show-img">
         <%= image_tag @travel.get_image(700, 700), class: "w-100" %>
       </div>
-      
+
       <!--地図情報-->
       <div class="show">
         <div class="show_address">
@@ -41,29 +41,33 @@
         <div class="show_maps" id="show_map"></div>  <!--マップ表示用。id="map"でもOK-->
       </div>
     </div>
-    
-    
-    <div class="col pl-5">
+
+
+
+    <!--（ページ右半分）-->
+    <div class="col-5">
       <!--投稿ユーザー(MyPageへのリンク付き)-->
-      <div>
-        <%= link_to user_path(@travel.user.id) do %>
-          <%= @travel.user.nickname %>
-        <% end %>
+      <div>  <!--投稿主のプロフィール画像、nickname、投稿本文、投稿日全ての親div-->
+        <div>
+          <%= link_to user_path(@travel.user.id) do %>
+            <%= @travel.user.nickname %>
+          <% end %>
+        </div>
+
+
+
+        <!--投稿内容-->
+        <div>
+          <%= @travel.body %>
+        </div>
+        <div>
+          投稿日：<%= @travel.created_at.strftime('%Y年%m月%d日 %H時%M分') %>
+        </div>
       </div>
-      
-      
-      
-      <!--投稿内容-->
-      <div>
-        <%= @travel.body %>
-      </div>
-      <div>
-        投稿日：<%= @travel.created_at.strftime('%Y年%m月%d日 %H時%M分') %>
-      </div>
-      
-      
-      
-      
+
+
+
+
       <!--いいね関係-->
       <% if user_signed_in? %>  <!--未ログインではいいね！はできないようにする-->
         <% if @travel.favorited_by?(current_user) %>  <!--いいねしていれば取消-->
@@ -76,21 +80,23 @@
           <% end %>
         <% end %>
       <% end %>
-      
-      
-      
+
+
+
       <!--コメント関係-->
       <div>
         <!--コメント件数とコメント内容の表示-->
         <p>コメント件数：<%= @comments.count %>件</p>
         <% @comments.each do |comment| %>
-          <%= image_tag comment.user.get_profile_image(100, 100) %>  <!--コメント主のプロフィール画像-->
-          <%= comment.user.nickname %>  <!--コメント主のニックネーム-->
-          <%= comment.comment_body %>  <!--コメント主のコメント内容-->
-          <!--コメント主であれば、コメントを削除できるようにする-->
-          <% if comment.user == current_user %>
-            <%= link_to "削除", travel_comment_path(comment.travel, comment), method: :delete, "data-confirm" => "コメントを削除します。よろしいですか？" %>
-          <% end %>
+          <div>
+            <%= image_tag comment.user.get_profile_image(100, 100) %>  <!--コメント主のプロフィール画像-->
+            <%= comment.user.nickname %>  <!--コメント主のニックネーム-->
+            <%= comment.comment_body %>  <!--コメント主のコメント内容-->
+            <!--コメント主であれば、コメントを削除できるようにする-->
+            <% if comment.user == current_user %>
+              <%= link_to "削除", travel_comment_path(comment.travel, comment), method: :delete, "data-confirm" => "コメントを削除します。よろしいですか？" %>
+            <% end %>
+          </div>
         <% end %>
       </div>
       <!--コメントの送信-->
@@ -116,6 +122,7 @@
 <style>
   #show_map {
     width: 100%;
+    /*width: 80%;*/
     /*width: 600px;*/
     height: 500px;
     aspect-ratio: 3 / 2;
@@ -129,11 +136,11 @@
   var map
   var map_lat
   var map_lng
-  
+
   function initMap(){
     myLatLng = {lat: <%= @travel.latitude %>, lng: <%= @travel.longitude %>}  // gonを利用してnew時に保存した:latitude, :longitudeをmyLatLngで保持
     marker = new google.maps.Marker();
-  
+
      // デベロッパーツールで地図(住所入力欄)をクリックするとhiddenのidのところに自動的に(Model名 + form_withでの指定カラム名(今回は:latitude, :longitude))が入る仕組みになっている。これを使用してgetElementByIdのidを指定する。
     map = new google.maps.Map(document.getElementById('show_map'), {  // マップ表示の<div class="show_maps" id="show_map"></div>を取得
     center: myLatLng,  // マップのセンターを上で定義したmyLatLngで表示
