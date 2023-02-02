@@ -31,7 +31,7 @@
         <div class="travel-show-img d-flex justify-content-center align-items-center">
           <%= image_tag @travel.get_image(1000, 1000), class: 'd-block mx-auto' %>
         </div>
-  
+
         <!--地図情報-->
         <div class="show mt-3">
           <div class="show_address">
@@ -40,9 +40,9 @@
           <div class="show_maps d-block mx-auto" id="show_map"></div>  <!--マップ表示用。id="map"でもOK-->
         </div>
       </div>
-  
-  
-  
+
+
+
       <!--（ページ右半分）-->
       <div class="col-12 col-md-5 mt-3 mt-md-0 pl-4">
         <div class="card">
@@ -80,17 +80,17 @@
           <% end %>
           </div>
         </div>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
+
+
+
+
+
         <!--コメント関係-->
         <div>
           <!--コメント件数とコメント内容の表示-->
@@ -111,8 +111,10 @@
         <% if user_signed_in? %>  <!--未ログイン時はコメントできないようにする-->
           <div>
             <%= form_with model: [@travel, @comment], method: :post do |f| %>
-              <%= f.text_area :comment_body, placeholder: "コメントをここに" %>
-              <%= f.submit "コメント送信" %>
+              <%= f.text_area :comment_body, placeholder: "コメントをここに", class: "form-control" %>
+              <div class="mt-2 d-flex justify-content-end">
+                <%= f.submit "コメント送信", class: "btn btn-success" %>
+              </div>
             <% end %>
           </div>
         <% end %>
