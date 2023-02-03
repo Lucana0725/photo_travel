@@ -18,7 +18,7 @@
         <!--投稿の削除-->
         <% if user_signed_in? %>  <!--未ログインでは投稿の操作は不可能にする-->
           <% if @travel.user_id == current_user.id %> <!--ログインユーザーは自分の投稿以外は削除できないようにする-->
-            <div class="text-right">
+            <div class="text-right" style="line-height:56px;">
               <%= link_to travel_path, method: :delete, "data-confirm" => "投稿を削除します。よろしいですか？", class: "btn btn-danger" do %>
                 投稿を削除
               <% end %>
