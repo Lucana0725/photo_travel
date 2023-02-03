@@ -6,19 +6,22 @@
         <!--一つ前のページに戻る(投稿一覧に戻るのではなく、travels#indexからtravels#showへアクセスしたらtravels#indexへ、users#showからtravels#showへアクセスしたらusers#showへ戻る)-->
         <%= link_to "← Go Back", :back %>
       </div>
-  
+
       <div class="col-8 text-center">
         <!--投稿タイトル-->
         <h1><%= @travel.title %></h1>
       </div>
-  
-      <div class="col-2 btn btn-danger">
+
+      <!--<div class="col-2">-->
+      <div class="col-2">
         <!--投稿の削除-->
         <% if user_signed_in? %>  <!--未ログインでは投稿の操作は不可能にする-->
           <% if @travel.user_id == current_user.id %> <!--ログインユーザーは自分の投稿以外は削除できないようにする-->
-            <%= link_to travel_path, method: :delete, "data-confirm" => "投稿を削除します。よろしいですか？" do %>
-              投稿を削除
-            <% end %>
+            <div class="text-right">
+              <%= link_to travel_path, method: :delete, "data-confirm" => "投稿を削除します。よろしいですか？", class: "btn btn-danger" do %>
+                投稿を削除
+              <% end %>
+            </div>
           <% end %>
         <% end %>
       </div>
@@ -91,30 +94,34 @@
         <!--コメント関係-->
         <!--コメント件数とコメント内容の表示-->
         <p>コメント件数：<%= @comments.count %>件</p>
-        <div class="card">
-          <% @comments.each do |comment| %>
-            <div class="d-flex card-body">
-              <%= link_to user_path(@travel.user.id) do %>
-                <%= image_tag comment.user.get_profile_image(72, 72), class: "rounded-circle mr-2" %>  <!--コメント主のプロフィール画像-->
-                <%= comment.user.nickname %>  <!--コメント主のニックネーム-->
-              <% end %>
-              <div class="comment-body ml-2">
-                <%= simple_format(comment.comment_body) %>  <!--コメント主のコメント内容-->
-              </div>
-              <!--コメント主であれば、コメントを削除できるようにする-->
-              <div class="comment-delete">
-                <% if comment.user == current_user %>
-                  <%= link_to "削除", travel_comment_path(comment.travel, comment), method: :delete, "data-confirm" => "コメントを削除します。よろしいですか？", class: "btn btn-danger" %>
+
+        <% if @comments.exists? %>  <!--コメントがあれば、コメントフィールドを表示(cardの都合上、これがないとcardのデザインが出現してしまう)-->
+          <div class="card mb-2">
+            <% @comments.each do |comment| %>
+              <div class="d-flex card-body">
+                <%= link_to user_path(@travel.user.id) do %>
+                  <%= image_tag comment.user.get_profile_image(72, 72), class: "rounded-circle mr-2" %>  <!--コメント主のプロフィール画像-->
+                  <%= comment.user.nickname %>  <!--コメント主のニックネーム-->
                 <% end %>
+                <div class="comment-body ml-2">
+                  <%= simple_format(comment.comment_body) %>  <!--コメント主のコメント内容-->
+                </div>
+                <!--コメント主であれば、コメントを削除できるようにする-->
+                <div class="comment-delete">
+                  <% if comment.user == current_user %>
+                    <%= link_to "削除", travel_comment_path(comment.travel, comment), method: :delete, "data-confirm" => "コメントを削除します。よろしいですか？", class: "btn btn-danger" %>
+                  <% end %>
+                </div>
               </div>
-            </div>
-          <% end %>
-        </div>
+            <% end %>
+          </div>
+        <% end %>
+
         <!--コメントの送信-->
         <% if user_signed_in? %>  <!--未ログイン時はコメントできないようにする-->
-          <div>
+          <div class="mb-5">
             <%= form_with model: [@travel, @comment], method: :post do |f| %>
-              <%= f.text_area :comment_body, placeholder: "コメントをここに", class: "form-control" %>
+              <%= f.text_area :comment_body, placeholder: "コメントをここに", rows: 5, class: "form-control comment-field" %>
               <div class="mt-2 d-flex justify-content-end">
                 <%= f.submit "コメント送信", class: "btn btn-success" %>
               </div>
