@@ -1,5 +1,5 @@
 <div class="row justify-content-center">
-  <div class="col-9">
+  <div class="col-9 mb-5">
     <span>※表示されている投稿データは全て架空のダミーです。</span>
     <div class="row">
       <div class="col-12 col-md-2">
@@ -120,7 +120,7 @@
 
         <!--コメントの送信-->
         <% if user_signed_in? %>  <!--未ログイン時はコメントできないようにする-->
-          <div class="mb-5">
+          <div>
             <%= form_with model: [@travel, @comment], method: :post do |f| %>
               <%= f.text_area :comment_body, placeholder: "コメントをここに", rows: 5, class: "form-control comment-field" %>
               <div class="mt-2 d-flex justify-content-end">
