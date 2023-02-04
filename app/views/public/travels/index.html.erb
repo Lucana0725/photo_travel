@@ -1,30 +1,36 @@
-<h1>Travels</h1>
-
-<% @travels.each do |travel| %>
-<div class="mb-4">
-  <div>
-    <!--各投稿へのリンク-->
-    <%= link_to travel_path(travel.id) do %>
-      <%= image_tag travel.get_image(300, 300) %>
-    <% end %>
+<div class="container">
+  <div class="row">
+    <h1>Travels</h1>
   </div>
 
-  <!--投稿者名（users#showへ遷移）-->
-  <div>
-    <%= link_to user_path(travel.user.id) do %>
-      <%= image_tag travel.user.get_profile_image(30, 30), class: "rounded-circle" %>
-      <%= travel.user.nickname %>
+  <div class="row d-flex flex-column">
+    <% @travels.each do |travel| %>
+    <div class="mb-3">
+        <div>
+          <!--各投稿へのリンク-->
+          <%= link_to travel_path(travel.id) do %>
+            <%= image_tag travel.get_image(300, 300) %>
+          <% end %>
+        </div>
+
+        <!--投稿者名（users#showへ遷移）-->
+        <div>
+          <%= link_to user_path(travel.user.id) do %>
+            <%= image_tag travel.user.get_profile_image(30, 30), class: "rounded-circle" %>
+            <%= travel.user.nickname %>
+          <% end %>
+        </div>
+
+        <!--投稿タイトル（travels#showへ遷移）-->
+        <div>
+          <%= link_to travel_path(travel.id) do %>
+            <%= travel.title %>
+          <% end %>
+          <span>♥ <%= travel.favorites.count %>いいね！</span>
+          <span><%= travel.comments.count %> コメント</span>
+        </div>
+
+    </div>
     <% end %>
   </div>
-
-  <!--投稿タイトル（travels#showへ遷移）-->
-  <div>
-    <%= link_to travel_path(travel.id) do %>
-      <%= travel.title %>
-    <% end %>
-    <span>♥ <%= travel.favorites.count %>いいね！</span>
-    <span><%= travel.comments.count %> コメント</span>
-  </div>
-
 </div>
-<% end %>
