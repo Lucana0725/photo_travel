@@ -1,39 +1,41 @@
-<div class="container mb-5">
-  <div class="row mb-5">
-    <div class="d-block mx-auto">
-      <h1>Travels</h1>
-    </div>
-  </div>
-
-  <div class="row d-flex flex-column">
-    <% @travels.each do |travel| %>
-    <div class="col-7 mx-auto">
-      <div class="travels-in-index pt-2 pb-2 mb-5" style="border-top:1px solid #ddd;border-bottom:1px solid #ddd;" >
-          <div class="text-center">
-            <!--各投稿へのリンク-->
-            <%= link_to travel_path(travel.id) do %>
-              <%= image_tag travel.get_image(300, 300) %>
-            <% end %>
-          </div>
-
-          <!--投稿者名（users#showへ遷移）-->
-          <div>
-            <%= link_to user_path(travel.user.id) do %>
-              <%= image_tag travel.user.get_profile_image(30, 30), class: "rounded-circle" %>
-              <%= travel.user.nickname %>
-            <% end %>
-          </div>
-
-          <!--投稿タイトル（travels#showへ遷移）-->
-          <div>
-            <%= link_to travel_path(travel.id) do %>
-              <%= travel.title %>
-            <% end %>
-            <span>♥ <%= travel.favorites.count %>いいね！</span>
-            <span><%= travel.comments.count %> コメント</span>
-          </div>
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div class="row mb-5">
+      <div class="d-block mx-auto">
+        <h1>Travels</h1>
       </div>
     </div>
-    <% end %>
+
+    <div class="row d-flex flex-column">
+      <% @travels.each do |travel| %>
+      <div class="col-4 mx-auto" style="height:400px;">
+        <div class="travels-in-index pt-5 pb-5" style="border-bottom:1px solid #ddd;" >
+            <div class="text-center">
+              <!--各投稿へのリンク-->
+              <%= link_to travel_path(travel.id) do %>
+                <%= image_tag travel.get_image(700, 700), class: "w-100 mb-2" %>
+              <% end %>
+            </div>
+
+            <!--投稿者名（users#showへ遷移）-->
+            <div>
+              <%= link_to user_path(travel.user.id) do %>
+                <%= image_tag travel.user.get_profile_image(30, 30), class: "rounded-circle" %>
+                <%= travel.user.nickname %>
+              <% end %>
+            </div>
+
+            <!--投稿タイトル（travels#showへ遷移）-->
+            <div>
+              <%= link_to travel_path(travel.id) do %>
+                <%= travel.title %>
+              <% end %>
+              <span>♥ <%= travel.favorites.count %>いいね！</span>
+              <span><%= travel.comments.count %> コメント</span>
+            </div>
+        </div>
+      </div>
+      <% end %>
+    </div>
   </div>
 </div>
