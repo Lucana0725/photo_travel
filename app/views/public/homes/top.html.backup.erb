@@ -1,0 +1,21 @@
+<h1>Photo Travel</h1>
+
+<h2>Lastest Travels</h2>
+
+<% @travels.each do |travel| %>
+  <div>
+    <%= link_to travel_path(travel.id) do %>
+      <%= image_tag travel.get_image(300, 300) %>
+    <% end %>
+  </div>
+  <div>
+    <%= link_to user_path(travel.user.id) do %>
+      <%= travel.user.nickname %>
+    <% end %>
+  </div>
+  <div>
+    <%= link_to travel_path(travel.id) do %>
+      <%= travel.title %>
+    <% end %>
+  </div>
+<% end %>

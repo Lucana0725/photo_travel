@@ -9,7 +9,7 @@
     <div class="row d-flex flex-column">
       <% @travels.each_with_index do |travel, i| %>
       <div class="col-5 mx-auto" style="height:400px;">
-        <div class="travels-in-index <% if i != 0 %> pt-5 <% end %> <% if i != @travels.size - 1 %> pb-5 <% end %>" style="border-bottom:1px solid #ddd;" >
+        <div class="travels-in-index <% if i != 0 %> pt-5 <% end %> <% if i != @travels.size - 1 %> pb-5 <% end %>" style="border-bottom:1px solid #ddd;" >  <!--最初の投稿には上padding無し、最後の投稿には下padding無し-->
             <div class="text-center">
               <!--各投稿へのリンク-->
               <%= link_to travel_path(travel.id) do %>
