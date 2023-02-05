@@ -15,59 +15,72 @@
 
   <body>
     <header>
-      <ul>
-        <% unless hide_search_bar? %>  <!--app/controllers/helpers/application_helper.rbにて定義したhide_search_bar?の呼び出し-->
-          <!--ユーザー検索用フォーム-->
-          <%= form_with url: search_users_path, method: :get do |f| %>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div>  <!--ヘッダー左側にロゴを配置。ログインの有無で遷移先を分岐-->
+          <% if user_signed_in? %>
+            <%= link_to travels_path do %>
+              Logo
+            <% end %>
+          <% else %>
+            <%= link_to root_path do %>
+              Logo
+            <% end %>
+          <% end %>
+        </div>
+        <ul>
+          <% unless hide_search_bar? %>  <!--app/controllers/helpers/application_helper.rbにて定義したhide_search_bar?の呼び出し-->
+            <!--ユーザー検索用フォーム-->
+            <%= form_with url: search_users_path, method: :get do |f| %>
+              <li>
+                <%= f.text_field :keyword %>
+                <%= f.submit "ユーザー検索" %>
+              </li>
+            <% end %>
+
+            <!--キーワード検索フォーム-->
+            <%= form_with url: search_travels_path, method: :get do |f| %>
+              <li>
+                <%= f.text_field :keyword %>
+                <%= f.submit "キーワード" %>
+              </li>
+            <% end %>
+          <% end %>
+
+          <% if user_signed_in? %>  <!--ユーザーログイン時のヘッダー-->
             <li>
-              <%= f.text_field :keyword %>
-              <%= f.submit "ユーザー検索" %>
+              <%= link_to "Travels", travels_path %>
+            </li>
+            <li>
+              <!--<#%= link_to "My Page", mypage_path %>-->
+              <%= link_to "My Page", user_path(current_user.id) %>
+            </li>
+            <li>
+              <%= link_to "New Travel", new_travel_path %>
+            </li>
+            <li>
+              <%= link_to "Log Out", destroy_user_session_path, method: :delete %>
+            </li>
+          <% elsif admin_signed_in? %>  <!--管理者ログイン時のヘッダー-->
+              <li><%= link_to "Log Out", destroy_admin_session_path, method: :delete %></li>
+          <% else %>  <!--ユーザー未ログイン時のヘッダー-->
+            <li>
+              <%= link_to "Top", root_path %>
+            </li>
+            <li>
+              <%= link_to "About", about_path %>
+            </li>
+            <li>
+              <%= link_to "Sign Up", new_user_registration_path %>
+            </li>
+            <li>
+              <%= link_to "Log In", new_user_session_path %>
+            </li>
+            <li>
+              <%= link_to "Log In for Guest", users_guest_sign_in_path, method: :post %>
             </li>
           <% end %>
-    
-          <!--キーワード検索フォーム-->
-          <%= form_with url: search_travels_path, method: :get do |f| %>
-            <li>
-              <%= f.text_field :keyword %>
-              <%= f.submit "キーワード" %>
-            </li>
-          <% end %>
-        <% end %>
-        
-        <% if user_signed_in? %>  <!--ユーザーログイン時のヘッダー-->
-          <li>
-            <%= link_to "Travels", travels_path %>
-          </li>
-          <li>
-            <!--<#%= link_to "My Page", mypage_path %>-->
-            <%= link_to "My Page", user_path(current_user.id) %>
-          </li>
-          <li>
-            <%= link_to "New Travel", new_travel_path %>
-          </li>
-          <li>
-            <%= link_to "Log Out", destroy_user_session_path, method: :delete %>
-          </li>
-        <% elsif admin_signed_in? %>  <!--管理者ログイン時のヘッダー-->
-            <li><%= link_to "Log Out", destroy_admin_session_path, method: :delete %></li>
-        <% else %>  <!--ユーザー未ログイン時のヘッダー-->
-          <li>
-            <%= link_to "Top", root_path %>
-          </li>
-          <li>
-            <%= link_to "About", about_path %>
-          </li>
-          <li>
-            <%= link_to "Sign Up", new_user_registration_path %>
-          </li>
-          <li>
-            <%= link_to "Log In", new_user_session_path %>
-          </li>
-          <li>
-            <%= link_to "Log In for Guest", users_guest_sign_in_path, method: :post %>
-          </li>
-        <% end %>
-      </ul>
+        </ul>
+      </nav>
     </header>
     <main>
     <%= flash[:notice]%>
