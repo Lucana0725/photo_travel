@@ -57,21 +57,15 @@
           <p>みんなと共有しましょう。</p>
         </div>
         <div>
-          <%= link_to new_user_session_path do %>
-            ログイン
-          <% end %>
+          <%= link_to "ログイン", new_user_session_path, class: "btn btn-success" %>
         </div>
         <p>
           アカウントをお持ちでない方は
         </p>
         <div>
-          <%= link_to new_user_registration_path do %>
-            新規登録
-          <% end %>
+          <%= link_to "新規登録", new_user_registration_path, class: "btn btn-primary" %>
           または
-          <%= link_to users_guest_sign_in_path do %>
-            ゲストとしてログイン
-          <% end %>
+          <%= link_to "ゲストとしてログイン", users_guest_sign_in_path, class: "btn btn-info" %>
         </div>
       </div>
     </div>
