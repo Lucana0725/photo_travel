@@ -1,98 +1,138 @@
-<div>
-  <!--一つ前のページに戻る(投稿一覧に戻るのではなく、travels#indexからtravels#showへアクセスしたらtravels#indexへ、users#showからtravels#showへアクセスしたらusers#showへ戻る)-->
-  <%= link_to "← Go Back", :back %>
-  
-  <span>※表示されている投稿データは全て架空のダミーです。</span>
-  
-  <!--投稿タイトル-->
-  <h1><%= @travel.title %></h1>
-  
-  <!--投稿の削除-->
-  <% if user_signed_in? %>  <!--未ログインでは投稿の操作は不可能にする-->
-    <% if @travel.user_id == current_user.id %> <!--ログインユーザーは自分の投稿以外は削除できないようにする-->
-      <%= link_to travel_path, method: :delete, "data-confirm" => "投稿を削除します。よろしいですか？" do %>
-        投稿を削除
-      <% end %>
-    <% end %>
-  <% end %>
-</div>
+<div class="row justify-content-center">
+  <div class="col-9 mb-5">
+    <span>※表示されている投稿データは全て架空のダミーです。</span>
+    <div class="row">
+      <div class="col-12 col-md-2">
+        <!--一つ前のページに戻る(投稿一覧に戻るのではなく、travels#indexからtravels#showへアクセスしたらtravels#indexへ、users#showからtravels#showへアクセスしたらusers#showへ戻る)-->
+        <%= link_to :back do %>
+          <span class="go-back" style="font-size:20px; line-height:56px;"><i class="fas fa-chevron-left"></i>  Go Back</span>
+        <% end %>
+      </div>
+
+      <div class="col-12 col-md-8 text-center">
+        <!--投稿タイトル-->
+        <h1><%= @travel.title %></h1>
+      </div>
+
+      <div class="col-12 col-md-2">
+        <!--投稿の削除-->
+        <% if user_signed_in? %>  <!--未ログインでは投稿の操作は不可能にする-->
+          <% if @travel.user_id == current_user.id %> <!--ログインユーザーは自分の投稿以外は削除できないようにする-->
+            <div class="text-right" style="line-height:56px;">
+              <%= link_to travel_path, method: :delete, "data-confirm" => "投稿を削除します。よろしいですか？", class: "btn btn-danger" do %>
+                投稿を削除
+              <% end %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
 
 
 
-<!--投稿写真-->
-<div>
-  <%= image_tag @travel.get_image(700, 700) %>
-</div>
+    <div class="row mt-5">
+      <!--投稿関係（ページ左半分）-->
+      <div class="col-12 col-md-7">
+        <!--投稿写真-->
+        <div class="travel-show-img d-flex justify-content-center align-items-center">
+          <%= image_tag @travel.get_image(1000, 1000), class: 'd-block mx-auto' %>
+        </div>
+
+        <!--地図情報-->
+        <div class="show mt-3">
+          <div class="show_address">
+            <%= @travel.address %>
+          </div>
+          <div class="show_maps d-block mx-auto" id="show_map"></div>  <!--マップ表示用。id="map"でもOK-->
+        </div>
+      </div>
 
 
 
-<!--投稿ユーザー(MyPageへのリンク付き)-->
-<div>
-  <%= link_to user_path(@travel.user.id) do %>
-    <%= @travel.user.nickname %>
-  <% end %>
-</div>
+      <!--（ページ右半分）-->
+      <div class="col-12 col-md-5 mt-3 mt-md-0 pl-4">
+        <div class="card">
+          <div class="card-header">
+            <div> <!--投稿主のプロフィール画像と名前-->
+              <%= link_to user_path(@travel.user.id) do %>
+                <%= image_tag @travel.user.get_profile_image(72, 72), class: "mr-2 rounded-circle" %>
+                <%= @travel.user.nickname %>
+              <% end %>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <div>  <!--投稿本文、投稿日の親div-->
+              <div>  <!--投稿内容-->
+                <%= simple_format(@travel.body) %>
+              </div>
+              <div class="text-right">
+                <small class="text-black-50">
+                  投稿日：<%= @travel.created_at.strftime('%Y年%m月%d日 %H時%M分') %>
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-footer">
+          <!--いいね関係-->
+          <% if user_signed_in? %>  <!--未ログインではいいね！はできないようにする-->
+            <% if @travel.favorited_by?(current_user) %>  <!--いいねしていれば取消-->
+              <%= link_to travel_favorites_path(@travel), method: :delete do %>
+                ♥ <%= @travel.favorites.count %>いいね！
+              <% end %>
+            <% else %>
+              <%= link_to travel_favorites_path(@travel), method: :post do %>  <!--いいねしていなければ付与-->
+                ♥ <%= @travel.favorites.count %>いいね！
+              <% end %>
+            <% end %>
+          <% end %>
+          </div>
+        </div>
 
 
 
-<!--投稿内容-->
-<div>
-  <%= @travel.body %>
-</div>
-<div>
-  投稿日：<%= @travel.created_at.strftime('%Y年%m月%d日 %H時%M分') %>
-</div>
+        <!--コメント関係-->
+        <!--コメント件数とコメント内容の表示-->
+        <p>コメント件数：<%= @comments.count %>件</p>
 
+        <% if @comments.exists? %>  <!--コメントがあれば、コメントフィールドを表示(cardの都合上、これがないとcardのデザインが出現してしまう)-->
+          <div class="card mb-2">
+            <% @comments.each do |comment| %>
+              <div class="d-flex card-body">
+                <%= link_to user_path(@travel.user.id) do %>
+                  <%= image_tag comment.user.get_profile_image(72, 72), class: "rounded-circle mr-2" %>  <!--コメント主のプロフィール画像-->
+                  <%= comment.user.nickname %>  <!--コメント主のニックネーム-->
+                <% end %>
+                <div class="comment-body ml-2">
+                  <%= simple_format(comment.comment_body) %>  <!--コメント主のコメント内容-->
+                </div>
+                <!--コメント主であれば、コメントを削除できるようにする-->
+                <div class="comment-delete">
+                  <% if comment.user == current_user %>
+                    <%= link_to "削除", travel_comment_path(comment.travel, comment), method: :delete, "data-confirm" => "コメントを削除します。よろしいですか？", class: "btn btn-danger" %>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
 
-
-<!--地図情報-->
-<div class="show">
-  <div class="show_address">
-    <%= @travel.address %>
+        <!--コメントの送信-->
+        <% if user_signed_in? %>  <!--未ログイン時はコメントできないようにする-->
+          <div>
+            <%= form_with model: [@travel, @comment], method: :post do |f| %>
+              <%= f.text_area :comment_body, placeholder: "コメント入力", rows: 5, class: "form-control comment-field" %>
+              <div class="mt-2 d-flex justify-content-end">
+                <%= f.submit "コメント送信", class: "btn btn-success" %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
   </div>
-  <div class="show_maps" id="show_map"></div>  <!--マップ表示用。id="map"でもOK-->
 </div>
 
-
-
-<!--いいね関係-->
-<% if user_signed_in? %>  <!--未ログインではいいね！はできないようにする-->
-  <% if @travel.favorited_by?(current_user) %>  <!--いいねしていれば取消-->
-    <%= link_to travel_favorites_path(@travel), method: :delete do %>
-      ♥ <%= @travel.favorites.count %>いいね！
-    <% end %>
-  <% else %>
-    <%= link_to travel_favorites_path(@travel), method: :post do %>  <!--いいねしていなければ付与-->
-      ♥ <%= @travel.favorites.count %>いいね！
-    <% end %>
-  <% end %>
-<% end %>
-
-
-
-<!--コメント関係-->
-<div>
-  <!--コメント件数とコメント内容の表示-->
-  <p>コメント件数：<%= @comments.count %>件</p>
-  <% @comments.each do |comment| %>
-    <%= image_tag comment.user.get_profile_image(100, 100) %>  <!--コメント主のプロフィール画像-->
-    <%= comment.user.nickname %>  <!--コメント主のニックネーム-->
-    <%= comment.comment_body %>  <!--コメント主のコメント内容-->
-    <!--コメント主であれば、コメントを削除できるようにする-->
-    <% if comment.user == current_user %>
-      <%= link_to "削除", travel_comment_path(comment.travel, comment), method: :delete, "data-confirm" => "コメントを削除します。よろしいですか？" %>
-    <% end %>
-  <% end %>
-</div>
-<!--コメントの送信-->
-<% if user_signed_in? %>  <!--未ログイン時はコメントできないようにする-->
-  <div>
-    <%= form_with model: [@travel, @comment], method: :post do |f| %>
-      <%= f.text_area :comment_body, placeholder: "コメントをここに" %>
-      <%= f.submit "コメント送信" %>
-    <% end %>
-  </div>
-<% end %>
 
 
 
@@ -101,8 +141,11 @@
 <!--地図の表示スタイル-->
 <style>
   #show_map {
-    width: 600px;
+    width: 80%;
+    /*width: 80%;*/
+    /*width: 600px;*/
     height: 500px;
+    aspect-ratio: 3 / 2;
   }
 </style>
 
@@ -113,15 +156,15 @@
   var map
   var map_lat
   var map_lng
-  
+
   function initMap(){
     myLatLng = {lat: <%= @travel.latitude %>, lng: <%= @travel.longitude %>}  // gonを利用してnew時に保存した:latitude, :longitudeをmyLatLngで保持
     marker = new google.maps.Marker();
-  
+
      // デベロッパーツールで地図(住所入力欄)をクリックするとhiddenのidのところに自動的に(Model名 + form_withでの指定カラム名(今回は:latitude, :longitude))が入る仕組みになっている。これを使用してgetElementByIdのidを指定する。
     map = new google.maps.Map(document.getElementById('show_map'), {  // マップ表示の<div class="show_maps" id="show_map"></div>を取得
     center: myLatLng,  // マップのセンターを上で定義したmyLatLngで表示
-    zoom: 12
+    zoom: 13
     });
     marker.setPosition(myLatLng);  // マーカーをmyLatLngの位置にセット
     marker.setMap(map);  // マーカーを地図上に表示

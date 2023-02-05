@@ -1,60 +1,41 @@
-<h1>Travels</h1>
+<div class="row justify-content-center mb-5">
+  <div class="col-8">
+    <div class="row mb-5">
+      <div class="d-block mx-auto">
+        <h1>Travels</h1>
+      </div>
+    </div>
 
-<% @travels.each do |travel| %>
-<!--ログインしているユーザーが自分のuser_idのページを見る時はログインユーザー権限のある操作ができるページに飛ぶ-->
-  <!--<#% if user_signed_in? && current_user.id.to_s == params[:id] %>-->
-    <!--投稿画像（travels#showへ遷移）-->
-    <div>
-      <!--各投稿へのリンク-->
-      <%= link_to travel_path(travel.id) do %>
-        <%= image_tag travel.get_image(300, 300) %>
+    <div class="row d-flex flex-column">
+      <% @travels.each_with_index do |travel, i| %>
+      <div class="col-5 mx-auto" style="height:400px;">
+        <div class="travels-in-index <% if i != 0 %> pt-5 <% end %> <% if i != @travels.size - 1 %> pb-5 <% end %>" style="border-bottom:1px solid #ddd;" >  <!--最初の投稿には上padding無し、最後の投稿には下padding無し-->
+            <div class="text-center">
+              <!--各投稿へのリンク-->
+              <%= link_to travel_path(travel.id) do %>
+                <%= image_tag travel.get_image(700, 700), class: "w-100 mb-2" %>
+              <% end %>
+            </div>
+
+            <!--投稿者名（users#showへ遷移）-->
+            <div>
+              <%= link_to user_path(travel.user.id) do %>
+                <%= image_tag travel.user.get_profile_image(30, 30), class: "rounded-circle" %>
+                <%= travel.user.nickname %>
+              <% end %>
+            </div>
+
+            <!--投稿タイトル（travels#showへ遷移）-->
+            <div>
+              <%= link_to travel_path(travel.id) do %>
+                <%= travel.title %>
+              <% end %>
+              <span>♥ <%= travel.favorites.count %>いいね！</span>
+              <span><%= travel.comments.count %> コメント</span>
+            </div>
+        </div>
+      </div>
       <% end %>
     </div>
-    
-    <!--投稿者名（users#showへ遷移）-->
-    <div>
-      <!--<#% if user_signed_in? && current_user.id.to_s == params[:id] %>-->
-      <!--<#%= link_to mypage_path(current_user.id) do %>-->
-      <!--ユーザーごとのマイページへ遷移-->
-        <%= link_to user_path(travel.user.id) do %>
-          <%= travel.user.nickname %>
-        <% end %>
-    </div>
-    
-    <!--投稿タイトル（travels#showへ遷移）-->
-    <div>
-      <%= link_to travel_path(travel.id) do %>
-        <%= travel.title %>
-      <% end %>
-      <!--<span>♥ <%#= @travel.favorites.count %>いいね</span>-->
-      <span>♥ <%= travel.favorites.count %>いいね！</span>
-      <span><%= travel.comments.count %> コメント</span>
-    </div>
-    
-    <!--投稿場所（県名）-->
-<!--  <#% else %>-->
-    <!--投稿画像（travels#showへ遷移）-->
-<!--    <div>-->
-<!--      <#%= link_to travel_path(@user.id) do %>-->
-<!--        <#%= image_tag travel.get_image(300, 300) %>-->
-<!--      <#% end %>-->
-<!--    </div>-->
-    
-    <!--投稿者名（users#showへ遷移）-->
-<!--    <div>-->
-<!--      <#%= link_to mypage_path(@user.id) do %>-->
-      <!--<#%= link_to "#" do %>-->
-<!--        <#%= travel.user.nickname %>-->
-<!--      <#% end %>-->
-<!--    </div>-->
-    
-    <!--投稿タイトル（travels#showへ遷移）-->
-<!--    <div>-->
-<!--      <#%= link_to travel_path(@user.id) do %>-->
-<!--        <#%= travel.title %>-->
-<!--      <#% end %>-->
-<!--    </div>-->
-    
-    <!--投稿場所（県名）-->
-<!--  <#% end %>-->
-<% end %>
+  </div>
+</div>

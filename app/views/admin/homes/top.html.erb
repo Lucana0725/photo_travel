@@ -3,7 +3,7 @@
     <h1>登録ユーザー一覧</h1>
   </div>
   <div class="row">
-      <table class="table table-hover text-center" style="table-layout:fixed;">
+      <table class="table table-hover text-center top-table">
         <thead>
           <tr>
             <th style="width:50px;">ID</th>
@@ -15,8 +15,8 @@
         </thead>
         <tbody>
         <% @users.each do |user| %>  <!--admin/homes#topにて定義の@usersを使用-->
-          <tr style="height:125px;">
-            <td><%= user.id %></td>
+          <tr>
+            <td style="line-height:101px;"><%= user.id %></td>
             <td>
               <%= link_to admin_user_path(user.id) do  %>  <!--ユーザー詳細情報ページへのリンク-->
                 <%= image_tag user.get_profile_image(100, 100) %>
