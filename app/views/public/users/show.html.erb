@@ -39,9 +39,9 @@
           <% if user_signed_in? %>  <!--未ログイン、トップからのアクセスを禁じる-->
             <% if @user != current_user %>  <!--user/showのユーザーが自分(ログインユーザー)でなければ、フォローボタンの表示をしたい(自分自身をフォローするのは)-->
               <% if current_user.following?(@user) %>
-                <%= link_to "フォローを外す", user_relationship_path(@user.id), method: :delete %>
+                <%= link_to "フォローを外す", user_relationship_path(@user.id), method: :delete, class: "btn btn-danger mb-2" %>
               <% else %>
-                <%= link_to "フォローする", user_relationships_path(@user.id), method: :post %>
+                <%= link_to "フォローする", user_relationships_path(@user.id), method: :post, class: "btn btn-success mb-2" %>
               <% end %>
             <% end %>
           <% end %>
@@ -49,14 +49,14 @@
 
           <!--フォロー一覧(FontAwesomeでアイコン載せてもいいかも)-->
           <div>
-            <%= link_to user_followings_path(@user) do %>
+            <%= link_to user_followings_path(@user), class: "btn btn-primary mb-2" do %>
               フォロー一覧
             <% end %>
           </div>
 
           <!--フォロワー一覧(FontAwesomeでアイコン載せてもいいかも)-->
           <div>
-            <%= link_to user_followers_path(@user) do %>
+            <%= link_to user_followers_path(@user), class: "btn btn-primary mb-2" do %>
               フォロワー一覧
             <% end %>
           </div>
@@ -64,7 +64,7 @@
 
           <!--いいね一覧-->
           <div>
-            <%= link_to "いいね！一覧", favorites_user_path(@user) %>
+            <%= link_to "いいね！一覧", favorites_user_path(@user), class: "btn btn-primary" %>
           </div>
         </div>
       </div>
