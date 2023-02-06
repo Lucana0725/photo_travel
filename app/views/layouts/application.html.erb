@@ -20,11 +20,14 @@
         <div class="container">
           <% if user_signed_in? %>
             <%= link_to travels_path, class: 'navbar-brand' do %>
-              <%= image_tag 'photo_travel_logo.jpg', width: '120px', height: '72px' %>
+              <%= image_tag 'photo_travel_logo_tp.jpg', width: '120px', height: '72px' %>
+            <% end %>
+          <% elsif admin_signed_in? %>
+            <%= link_to admin_path, class: 'navbar-brand' do %>
+              <%= image_tag 'photo_travel_logo_tp.jpg', width: '120px', height: '72px' %>
             <% end %>
           <% else %>
             <%= link_to root_path, class: 'navbar-brand' do %>
-              <!--<img src="/app/assets/images/photo_travel_logo.jpg">-->
               <%= image_tag 'photo_travel_logo_tp.jpg', width: '120px', height: '72px' %>
             <% end %>
           <% end %>
