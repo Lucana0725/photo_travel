@@ -33,9 +33,6 @@
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
-              <li class="nav-item">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-              </li>
 
               <% if user_signed_in? %>  <!--ユーザーログイン時のヘッダー-->
                 <li class="nav-item">
@@ -53,19 +50,19 @@
               <% elsif admin_signed_in? %>  <!--管理者ログイン時のヘッダー-->
                   <li><%= link_to "Log Out", destroy_admin_session_path, method: :delete, class: 'nav-link' %></li>
               <% else %>  <!--ユーザー未ログイン時のヘッダー-->
-                <li class="nav-item">
+                <li class="nav-item pr-3">
                   <%= link_to "Top", root_path, class: 'nav-link' %>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item pr-3">
                   <%= link_to "About", about_path, class: 'nav-link' %>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item pr-3">
                   <%= link_to "Sign Up", new_user_registration_path, class: 'nav-link' %>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item pr-3">
                   <%= link_to "Log In", new_user_session_path, class: 'nav-link' %>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item pr-3">
                   <%= link_to "Log In for Guest", users_guest_sign_in_path, method: :post, class: 'nav-link' %>
                 </li>
               <% end %>
