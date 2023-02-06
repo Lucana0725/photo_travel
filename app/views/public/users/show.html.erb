@@ -5,7 +5,7 @@
         <h1>Profile</h1>
       </div>
       <!--ユーザー情報-->
-      <div class="row">
+      <div class="row mt-3">
         <div class="col-4">
           <div class="text-center">
             <!--プロフィール画像-->
@@ -15,22 +15,23 @@
         <div class="col-4">
           <!--ニックネーム表示-->
           <div>
-            <%= @user.nickname %>
+            <div class="mb-3" style="font-size:22px; font-weight:bold;">
+              <%= @user.nickname %>
+              <!--ユーザー情報編集(FontAwesomeでアイコン載せてもいいかも)-->
+              <% if user_signed_in? %>  <!--未ログイン、トップページからのアクセスを禁じる-->
+                <% if @user.id == current_user.id %>  <!--ログインユーザー以外のユーザーマイページでユーザー情報編集のリンクを表示させない-->
+                  <%= link_to edit_user_path do %>
+                    <i class="fas fa-user-cog"></i>
+                  <% end %>
+                <% end %>
+              <% end %>
+            </div>
           </div>
           <!--自己紹介文表示-->
           <div>
             <%= @user.introduction %>
           </div>
-          <div>
-            <!--ユーザー情報編集(FontAwesomeでアイコン載せてもいいかも)-->
-            <% if user_signed_in? %>  <!--未ログイン、トップページからのアクセスを禁じる-->
-              <% if @user.id == current_user.id %>  <!--ログインユーザー以外のユーザーマイページでユーザー情報編集のリンクを表示させない-->
-                <%= link_to edit_user_path do %>
-                  プロフィール編集
-                <% end %>
-              <% end %>
-            <% end %>
-          </div>
+
 
 
         </div>
@@ -39,9 +40,13 @@
           <% if user_signed_in? %>  <!--未ログイン、トップからのアクセスを禁じる-->
             <% if @user != current_user %>  <!--user/showのユーザーが自分(ログインユーザー)でなければ、フォローボタンの表示をしたい(自分自身をフォローするのは)-->
               <% if current_user.following?(@user) %>
-                <%= link_to "フォローを外す", user_relationship_path(@user.id), method: :delete, class: "btn btn-danger mb-2" %>
+                <%= link_to user_relationship_path(@user.id), method: :delete, class: "btn btn-danger mb-2" do %>
+                  <i class="fas fa-user-minus"></i> フォローを外す
+                <% end %>
               <% else %>
-                <%= link_to "フォローする", user_relationships_path(@user.id), method: :post, class: "btn btn-success mb-2" %>
+                <%= link_to user_relationships_path(@user.id), method: :post, class: "btn btn-success mb-2" do %>
+                  <i class="fas fa-user-plus"></i> フォローする
+                <% end %>
               <% end %>
             <% end %>
           <% end %>
