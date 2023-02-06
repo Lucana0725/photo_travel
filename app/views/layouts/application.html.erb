@@ -20,11 +20,12 @@
         <div class="container">
           <% if user_signed_in? %>
             <%= link_to travels_path, class: 'navbar-brand' do %>
-              Logo
+              <%= image_tag 'photo_travel_logo.jpg', width: '120px', height: '72px' %>
             <% end %>
           <% else %>
             <%= link_to root_path, class: 'navbar-brand' do %>
-              Logo
+              <!--<img src="/app/assets/images/photo_travel_logo.jpg">-->
+              <%= image_tag 'photo_travel_logo.jpg', width: '120px', height: '72px' %>
             <% end %>
           <% end %>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
