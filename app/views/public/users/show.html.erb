@@ -5,11 +5,11 @@
         <h1>Profile</h1>
       </div>
       <!--ユーザー情報-->
-      <div class="row mt-3">
+      <div class="row mt-4">
         <div class="col-4">
           <div class="text-center">
             <!--プロフィール画像-->
-            <%= image_tag @user.get_profile_image(200, 200), class: "rounded-circle" %>
+            <%= image_tag @user.get_profile_image(175, 175), class: "rounded-circle" %>
           </div>
         </div>
         <div class="col-4">
@@ -92,7 +92,7 @@
       <div class="row justify-content-center mt-3">
         <% @travels.each_with_index do |travel, i| %>
           <!--投稿写真-->
-          <div class="<% if i != 0 %> pt-5 <% end %> pb-5" style="border-bottom:1px solid #ddd">
+          <div class="text-center <% if i != 0 %> pt-5 <% end %> pb-5" style="border-bottom:1px solid #ddd">
             <%= link_to travel_path(travel.id) do %>
               <%= image_tag travel.get_image(700, 700) %></br>
             <!--投稿タイトル-->
