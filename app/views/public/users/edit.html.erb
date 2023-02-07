@@ -9,34 +9,34 @@
         <div class="col-8">
           <%= form_with model: @user, url: user_path(current_user.id), method: :patch do |f| %>
             <div class="row">
-              <div class="col mb-3 text-center" style="font-weight:bold;">
+              <div class="col mb-3 pr-5 text-right" style="font-weight:bold;">
                 <%= f.label :profile_image, "プロフィール画像" %>
               </div>
-              <div class="col mb-3">
+              <div class="col mb-3 pr-5">
                 <%= f.file_field :profile_image, accept: 'image/*' %>
               </div>
             </div>
             <div class="row">
-              <div class="col mb-3 text-center" style="line-height:38px; font-weight:bold;">
+              <div class="col mb-3 pr-5 text-right" style="line-height:38px; font-weight:bold;">
                 <%= f.label :nickname, "ニックネーム" %>
               </div>
-              <div class="col mb-3">
+              <div class="col mb-3 pr-5">
                 <%= f.text_field :nickname, class: "form-control" %>
               </div>
             </div>
             <div class="row">
-              <div class="col mb-3 text-center" style="line-height:86px; font-weight:bold;">
+              <div class="col mb-3 pr-5 text-right" style="line-height:86px; font-weight:bold;">
                 <%= f.label :introduction, "自己紹介文" %>
               </div>
-              <div class="col mb-3">
+              <div class="col mb-3 pr-5">
                 <%= f.text_area :introduction, rows: 3, class: "form-control" %>
               </div>
             </div>
             <div class="row">
-              <div class="col text-center">
+              <div class="col pr-5 text-right">
                 <%= link_to "退会する", unsubscribe_path, class: "btn btn-danger" %>
               </div>
-              <div class="col text-center">
+              <div class="col pr-5 text-center">
                 <%= f.submit "変更を保存する", class: "btn btn-success" %>
               </div>
             </div>
