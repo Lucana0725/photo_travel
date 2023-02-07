@@ -8,6 +8,7 @@
 
 body {
   padding-top: 98px;
+  line-height: 1.8;
 }
 
 table.top-table td {
@@ -31,8 +32,10 @@ table.top-table td {
 }
 
 // public/travels/showのcomment用
-.comment-body {
-  line-height: 72px;
+.comment-body p {
+  // line-height: 72px;
+  margin: 0;
+  padding: 0;
 }
 
 // public/travels/showのコメント削除ボタン用
