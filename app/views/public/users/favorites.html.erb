@@ -1,15 +1,57 @@
-<h1>いいね！一覧</h1>
 
-<% @favorite_travels.each do |travel| %>
-  <div>
-    <%= link_to user_path(travel.user.id) do %>
-      <%= image_tag travel.get_image(300, 300) %></br>
-      <%= travel.user.nickname %>
-    <% end %>
+
+
+
+
+
+<!--できればコピペじゃないこっちを使いたい…！！-->
+
+
+<div class="row justify-content-center mb-5">
+  <div class="col-8">
+    <h1 class="text-center">いいね！一覧</h1>
+
+    <div class="row">
+      <div class="col-5 mx-auto mt-5">
+        <% @favorite_travels.each_with_index do |travel, i| %>
+        <div class="<% if i != 0 %> pt-5 <% end %> <% if i != @favorite_travels.size - 1 %> pb-5 <% end %>" style="<% if i != @favorite_travels.size - 1 %> border-bottom:1px solid #eee; <% end %> ">
+          <div>  <!--投稿画像-->
+            <%= link_to travel_path(travel) do %>
+              <%= image_tag travel.get_image(700, 700), class: "w-100 mb-2" %>
+            <% end %>  <!--link_toのend-->
+          </div>
+          <div>  <!--プロフィール画像とニックネーム-->
+            <%= link_to user_path(travel.user.id) do %>
+              <%= image_tag travel.user.get_profile_image(30, 30), class: "rounded-circle" %>
+              <%= travel.user.nickname %>
+            <% end %>  <!--link_toのend-->
+          </div>
+          <div>  <!--投稿タイトル-->
+            <%= link_to travel_path(travel) do %>
+              <%= travel.title %>
+            <% end %>  <!--link_toのend-->
+          </div>
+        </div>
+        <% end %>
+      </div>
+    </div>
   </div>
-  <div>
-    <%= link_to travel_path(travel.id) do %>
-      <%= travel.title %>
-    <% end %>
-  </div>
-<% end %>
+</div>
+
+
+
+<!--<h1>いいね！一覧</h1>-->
+
+<!--<% @favorite_travels.each do |travel| %>-->
+<!--  <div>-->
+<!--    <%= link_to user_path(travel.user.id) do %>-->
+<!--      <%= image_tag travel.get_image(300, 300) %></br>-->
+<!--      <%= travel.user.nickname %>-->
+<!--    <% end %>-->
+<!--  </div>-->
+<!--  <div>-->
+<!--    <%= link_to travel_path(travel.id) do %>-->
+<!--      <%= travel.title %>-->
+<!--    <% end %>-->
+<!--  </div>-->
+<!--<% end %>-->
