@@ -1,16 +1,28 @@
-<!--<h1>Public::Users#unsubscribe</h1>-->
-<!--<p>Find me in app/views/public/users/unsubscribe.html.erb</p>-->
-<h1>退会確認</h1>
+<div class="container">  <!--1140px幅かつ要素を中央に配置(並び自体は左揃え)-->
+  <div class="row justify-content-center">  <!--内包している要素を横並びに(rowはd-flexがついてくる)。justify-content-centerでrow要素そのものを中央揃えに。-->
+    <div class="col-8">  <!--container幅いっぱいに広がったrowの中に、col-8分だけの幅を持たせる。これがこのページの内容たちの全体幅になる。(ハイフン以下指定無しで多分col-12(=row幅100%))-->
+      <div class="row  justify-content-center">  <!--col-8の中に、タイトル用のrowを用意、中央にしたいのでjustify-content-center。-->
+        <h1>退会確認</h1>
+      </div>
 
-<div>退会すると、これまでの投稿・フォロー関係など</div>
-<div>あなたの全てのデータが失われます。</div>
-<div>本当に退会しますか？</div>
+      <div class="row mt-4">  <!--col-8(全体col)の中に、タイトル以外の内容物(ページ説明文とリンクボタン)用のrowを用意。-->
+        <div class="col-12">  <!--col-12分の幅を用意。-->
+          <div class="text-center">  <!--本文たちにtext-centerを付与。今回は行頭を揃えずに中央揃えにしたいからtext-center-->
+            <div>退会すると、これまでの投稿・フォロー関係など</div>
+            <div>あなたの全てのデータが失われます。</div>
+            <div>本当に退会しますか？</div>
+          </div>
 
-<div>
-  <%= link_to "いいえ", edit_user_path(current_user.id) %>
-  <%= link_to "退会する", withdrawal_path, method: :patch, "data-confirm" => "本当に退会しますか？" %>
+          <div class="col-12 col-md-6 d-flex flex-column flex-md-row mx-auto mt-3">  <!--md幅未満ではボタンたちはcol-12幅, flex-column、md以上でcol-6幅, flex-row。中央揃えにしたいからmx-auto。-->
+            <div class="col-12 col-md-6">
+              <%= link_to "いいえ", edit_user_path(current_user.id), class: "btn btn-primary w-100 mb-3 mb-md-0" %>  <!--幅100%、md幅未満のときはmb-3、md以上でmb無し-->
+            </div>
+            <div class="col-12 col-md-6">
+              <%= link_to "退会する", withdrawal_path, method: :patch, "data-confirm" => "本当に退会しますか？", class: "btn btn-danger w-100" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-
-<!--<#%= form_with @user, url: withdrawal_path, method: :patch do |f| %>-->
-<!--  <#%= f.submit "退会する" %>-->
-<!--<#% end %>-->
