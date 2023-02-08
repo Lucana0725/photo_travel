@@ -1,0 +1,21 @@
+<!--<h1>Public::Relationships#followers</h1>-->
+<!--<p>Find me in app/views/public/relationships/followers.html.erb</p>-->
+<h1>フォロワー一覧</h1>
+
+<% if @users.exists? %>
+  <% @users.each do |user| %>
+    <%= link_to user_path(user) do %>
+      <table>
+        <tr>
+          <td><%= image_tag user.get_profile_image(100, 100) %></td>  <!--プロフィール画像-->
+          <td><%= user.nickname %></td>  <!--ニックネーム-->
+          <td><%= user.introduction %></td>  <!--自己紹介文-->
+          <!--<td>フォロー：<#%= user.following_user.count %></td>-->  <!--フォロー数 一旦削除-->
+          <!--<td>フォロワー：<#%= user.follower_user.count %></td>-->  <!--フォロワー数 一旦削除-->
+        </tr>
+    </table>
+    <% end %>
+  <% end %>
+<% else %>
+  <p>フォロワーはまだいません</p>
+<% end %>

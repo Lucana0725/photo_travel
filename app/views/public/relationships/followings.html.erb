@@ -1,21 +1,37 @@
-<h1>フォロー一覧</h1>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col">
+      <div class="row justify-content-center">
+        <h1>フォロー一覧</h1>
+      </div>
 
-<% if @users.exists? %>  <!--@usersは、relationships#followingsにて定義したもの-->
-  <% @users.each do |user| %>
-    <%= link_to user_path(user) do %>
-    <table>
-      <tbody>
-        <tr>
-            <td><%= image_tag user.get_profile_image(100, 100) %></td> <!--プロフィール画像-->
-            <td><%= user.nickname %></td>  <!--ニックネーム-->
-            <td><%= user.introduction %></td>  <!--自己紹介文-->
-          <!--<td>フォロー：<#%= user.follower.count %></td>-->  <!--フォロー数 一旦削除-->
-          <!--<td>フォロワー：<#%= user.followed.count %></td>-->  <!--フォロワー数 一旦削除-->
-        </tr>
-      </tbody>
-    </table>
-    <% end %>
-  <% end %>
-<% else %>
-  <p>フォローしているユーザーはいません</p>
-<% end %>
+      <div class="row justify-content-center mt-5">
+        <div class="col-6">
+          <% if @users.exists? %>
+            <% @users.each_with_index do |user, i| %>
+              <div class="d-flex <% if i != 0 %> pt-3 <% end %> <% if i != @users.size - 1 %> pb-3 <% end %>" style="<% if i != @users.size - 1 %> border-bottom:1px solid #eee; <% end %>">
+                <div class="col-4 d-flex">
+                  <%= link_to user_path(user) do %>
+                    <div class="text-center align-self-center">
+                      <%= image_tag user.get_profile_image(75, 75), class: "rounded-circle" %>
+                    </div>
+                    <div class="text-center align-self-center">
+                      <%= user.nickname %>
+                    </div>
+                  <% end %>
+                </div>
+                <div class="col-8 d-flex align-items-center">
+                  <%= user.introduction %>
+                </div>
+
+              </div>
+            <% end %>
+          <% else %>
+            <div class="text-center" style="font-size:28px;">フォローしている人はいません</div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
