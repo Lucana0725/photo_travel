@@ -1,35 +1,77 @@
-<div class="container mt-5">
-  <div class="row mb-3">
-    <h2>Log in</h2>
-  </div>
+<% content_for :pack_tag do %>
+  <%= javascript_pack_tag 'sessions_new', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= stylesheet_pack_tag 'sessions_new', media: 'all', 'data-turbolinks-track': 'reload' %>
+<% end %>
+
+<div class="container pt-5">
+    <h2 class="mb-5">Log in</h2>
+
 
   <div class"row">
     <div class="col-4">
-      <%= form_with model: @user, url: user_session_path do |f| %>
-        <div class="field">
-          <%= f.label :email, "Email", class: "form-label" %><br />
-          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
-        </div>
+      <div class="col p-3" style="background-color:rgba(255, 255, 255, 0.7);">
+        <%= form_with model: @user, url: user_session_path do |f| %>
+          <div class="field">
+            <%= f.label :email, "Email", class: "form-label" %><br />
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+          </div>
 
-        <div class="field">
-          <%= f.label :password, "Password", class: "form-label" %><br />
-          <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>
-        </div>
+          <div class="field">
+            <%= f.label :password, "Password", class: "form-label" %><br />
+            <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>
+          </div>
 
-        <!--<#% if devise_mapping.rememberable? %>-->
-        <!--  <div class="field">-->
-        <!--    <%#= f.check_box :remember_me %>-->
-        <!--    <%#= f.label :remember_me %>-->
-        <!--  </div>-->
-        <!--<#% end %>-->
+          <!--<#% if devise_mapping.rememberable? %>-->
+          <!--  <div class="field">-->
+          <!--    <%#= f.check_box :remember_me %>-->
+          <!--    <%#= f.label :remember_me %>-->
+          <!--  </div>-->
+          <!--<#% end %>-->
 
-        <div class="actions text-right mt-3">
-          <%= f.submit "Log in", class: "btn btn-success" %>
-        </div>
-      <% end %>
+          <div class="actions text-right mt-3">
+            <%= f.submit "Log in", class: "btn btn-success" %>
+          </div>
+        <% end %>
+      </div>
     </div>
     <!--<#%= render "public/shared/links" %>-->
   </div>
     <!--<#%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>-->
 </div>
 
+<!--<div class="container pt-5">-->
+<!--  <div class="row mb-3">-->
+<!--    <h2>Log in</h2>-->
+<!--  </div>-->
+
+<!--  <div class"row">-->
+<!--    <div class="col-4">-->
+<!--      <div class="col">-->
+<!--        <%= form_with model: @user, url: user_session_path do |f| %>-->
+<!--          <div class="field">-->
+<!--            <%= f.label :email, "Email", class: "form-label" %><br />-->
+<!--            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>-->
+<!--          </div>-->
+
+<!--          <div class="field">-->
+<!--            <%= f.label :password, "Password", class: "form-label" %><br />-->
+<!--            <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>-->
+<!--          </div>-->
+
+          <!--<#% if devise_mapping.rememberable? %>-->
+          <!--  <div class="field">-->
+          <!--    <%#= f.check_box :remember_me %>-->
+          <!--    <%#= f.label :remember_me %>-->
+          <!--  </div>-->
+          <!--<#% end %>-->
+
+<!--          <div class="actions text-right mt-3">-->
+<!--            <%= f.submit "Log in", class: "btn btn-success" %>-->
+<!--          </div>-->
+<!--        <% end %>-->
+<!--      </div>-->
+<!--    </div>-->
+    <!--<#%= render "public/shared/links" %>-->
+<!--  </div>-->
+    <!--<#%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>-->
+<!--</div>-->
