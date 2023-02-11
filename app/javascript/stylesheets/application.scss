@@ -9,12 +9,18 @@
 body {
   padding-top: 98px;
   line-height: 1.8;
+  background-image: url('../../assets/images/general_bg2.jpg');
+  background-size: cover;
+  background-attachment: fixed;
+  // width: 100vw;
 }
 
-.default {
-  background-image: url('../../assets/images/general_bg1.jpg');
-  background-size: cover;
-  height: 100vh;
+.general {
+  // background-image: url('../../assets/images/general_bg2.jpg');
+  // background-size: cover;
+  // background-attachment: fixed;
+  // // width: 100vw;
+  // height: 100vh;
 }
 
 

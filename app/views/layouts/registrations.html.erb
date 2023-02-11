@@ -16,9 +16,9 @@
   <body>
     <%= render "public/shared/header" %>
     <main>
-    <%= flash[:notice]%>
-    <%= flash[:alert] %>
     <div class="registrations_new">
+      <%= flash[:notice]%>
+      <%= flash[:alert] %>
       <%= yield %>
     </div>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY'] %>&callback=initMap" async defer></script>  <!--ここに記述することで全てのページでGoogleMapを読み込むことができるようになる-->
