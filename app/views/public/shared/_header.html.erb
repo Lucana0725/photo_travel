@@ -1,0 +1,77 @@
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div class="container">
+      <% if user_signed_in? %>
+        <%= link_to travels_path, class: 'navbar-brand' do %>
+          <%= image_tag 'photo_travel_logo_tp.jpg', width: '120px', height: '72px' %>
+        <% end %>
+      <% elsif admin_signed_in? %>
+        <%= link_to admin_path, class: 'navbar-brand' do %>
+          <%= image_tag 'photo_travel_logo_tp.jpg', width: '120px', height: '72px' %>
+        <% end %>
+      <% else %>
+        <%= link_to root_path, class: 'navbar-brand' do %>
+          <%= image_tag 'photo_travel_logo_tp.jpg', width: '120px', height: '72px' %>
+        <% end %>
+      <% end %>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+
+          <% if user_signed_in? %>  <!--ユーザーログイン時のヘッダー-->
+            <li class="nav-item pr-3" style="font-size:22px;">
+              <%= link_to "Travels", travels_path, class: 'nav-link pr-2' %>
+            </li>
+            <li class="nav-item pr-3" style="font-size:22px;">
+              <%= link_to "My Page", user_path(current_user.id), class: 'nav-link' %>
+            </li>
+            <li class="nav-item pr-3" style="font-size:22px;">
+              <%= link_to "New Travel", new_travel_path, class: 'nav-link' %>
+            </li>
+            <li class="nav-item pr-3" style="font-size:22px;">
+              <%= link_to "Log Out", destroy_user_session_path, method: :delete, class: 'nav-link' %>
+            </li>
+          <% elsif admin_signed_in? %>  <!--管理者ログイン時のヘッダー-->
+              <li class="nav-item pr-3" style="font-size:22px;"><%= link_to "Log Out", destroy_admin_session_path, method: :delete, class: 'nav-link' %></li>
+          <% else %>  <!--ユーザー未ログイン時のヘッダー-->
+            <li class="nav-item pr-3" style="font-size:22px;">
+              <%= link_to "Top", root_path, class: 'nav-link' %>
+            </li>
+            <li class="nav-item pr-3" style="font-size:22px;">
+              <%= link_to "About", about_path, class: 'nav-link' %>
+            </li>
+            <li class="nav-item pr-3" style="font-size:22px;">
+              <%= link_to "Sign Up", new_user_registration_path, class: 'nav-link' %>
+            </li>
+            <li class="nav-item pr-3" style="font-size:22px;">
+              <%= link_to "Log In", new_user_session_path, class: 'nav-link' %>
+            </li>
+            <li class="nav-item pr-3" style="font-size:22px;">
+              <%= link_to "Log In for Guest", users_guest_sign_in_path, method: :post, class: 'nav-link' %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!--<% unless hide_search_bar? %>  <!--app/controllers/helpers/application_helper.rbにて定義したhide_search_bar?の呼び出し-->
+  <!--  ユーザー検索用フォーム-->
+  <!--  <%= form_with url: search_users_path, method: :get do |f| %>-->
+  <!--    <li>-->
+  <!--      <%= f.text_field :keyword %>-->
+  <!--      <%= f.submit "ユーザー検索" %>-->
+  <!--    </li>-->
+  <!--  <% end %>-->
+
+  <!--  キーワード検索フォーム-->
+  <!--  <%= form_with url: search_travels_path, method: :get do |f| %>-->
+  <!--    <li>-->
+  <!--      <%= f.text_field :keyword %>-->
+  <!--      <%= f.submit "キーワード" %>-->
+  <!--    </li>-->
+  <!--  <% end %>-->
+  <!--<% end %>-->
+</header>

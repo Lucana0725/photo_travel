@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>PhotoTravel</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= include_gon(init: true) %>  <!--gonの使用を許可-->
+
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <!--<#%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>-->
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= yield :pack_tag %>
+  </head>
+
+  <body>
+    <%= render "public/shared/header" %>
+    <main>
+    <div class="registrations_new">
+      <%= flash[:notice]%>
+      <%= flash[:alert] %>
+      <%= yield %>
+    </div>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY'] %>&callback=initMap" async defer></script>  <!--ここに記述することで全てのページでGoogleMapを読み込むことができるようになる-->
+    </main>
+  </body>
+</html>
