@@ -3,6 +3,7 @@ module ApplicationHelper
   def hide_search_bar?
     current_page?(controller: 'public/sessions', action: 'new') ||
       current_page?(controller: 'public/registrations', action: 'new') ||
-      current_page?(controller: 'public/homes', action: 'about')
+      current_page?(controller: 'public/homes', action: 'about') ||
+      current_page?(controller: 'public/users', action: 'unsubscribe')
   end
 end

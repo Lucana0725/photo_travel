@@ -1,0 +1,21 @@
+<!--ユーザー検索用フォーム-->
+<% unless hide_search_bar? %>
+  <div class="d-flex mr-3">
+    <%= form_with url: search_users_path, method: :get do |f| %>
+        <%= f.text_field :keyword, placeholder: "ユーザー名", class: "form-control" %>
+        <%= button_tag type: "submit", class: "btn btn-primary" do %>
+          <i class="fas fa-user-friends"></i>
+        <% end %>
+    <% end %>
+  </div>
+
+  <!--キーワード検索フォーム-->
+  <div class="d-flex">
+    <%= form_with url: search_travels_path, method: :get do |f| %>
+        <%= f.text_field :keyword, placeholder: "キーワード検索", class: "form-control" %>
+        <%= button_tag type: "submit", class: "btn btn-primary" do %>
+          <i class="fas fa-search"></i>
+        <% end %>
+    <% end %>
+  </div>
+<% end %>
