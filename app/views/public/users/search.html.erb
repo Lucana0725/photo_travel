@@ -1,13 +1,51 @@
-<h2>検索結果 "<%= @keyword %>"</h2>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h2>ユーザー検索結果 "<%= @keyword %>"</h2>
 
-<ul>
-  <% @users.each do |user| %>  <!--users#searchで定義した@usersを使用-->
-  <li>
-    <%= link_to user_path(user) do %>
-      <%= image_tag user.get_profile_image(100, 100) %>
-      <%= user.nickname %>
-      <%= user.introduction %>
-    <% end %>
-  </li>
-  <% end %>
-</ul>
+      <div class="row justify-content-center mt-5">
+        <div class="col-6">
+          <% @users.each_with_index do |user, i| %>
+            <div class="d-flex <% if i != 0 %> pt-3 <% end %> <% if i != @users.size - 1 %> pb-3 <% end %>" style="<% if i != @users.size - 1 %> border-bottom:1px solid #aaa; <% end %>">
+              <div class="col-4 text-center">
+                <%= link_to user_path(user) do %>
+                  <div>
+                    <%= image_tag user.get_profile_image(75, 75), class: "rounded-circle" %>
+                  </div>
+                  <div>
+                    <%= user.nickname %>
+                  </div>
+                <% end %>  <!--link_toのend-->
+              </div>
+              <div class="col-8 d-flex align-items-center">
+                <%= user.introduction %>
+              </div>
+            </div>
+          <% end %>  <!--eachのend-->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!--<div class="container">-->
+<!--  <div class="row">-->
+<!--    <div class="col-8">-->
+<!--      <h2>検索結果 "<%= @keyword %>"</h2>-->
+
+<!--      <ul class="list-unstyled">-->
+<!--        <% @users.each do |user| %>  <!--users#searchで定義した@usersを使用-->-->
+<!--        <li>-->
+<!--          <%= link_to user_path(user) do %>-->
+<!--            <%= image_tag user.get_profile_image(75, 75), class: "rounded-circle" %>-->
+<!--            <%= user.nickname %>-->
+<!--            <%= user.introduction %>-->
+<!--          <% end %>-->
+<!--        </li>-->
+<!--        <% end %>-->
+<!--      </ul>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
