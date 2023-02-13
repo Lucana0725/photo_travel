@@ -19,8 +19,10 @@
     <div class="general">
       <%= flash[:notice]%>
       <%= flash[:alert] %>
-      <div class="d-flex justify-content-end mt-3 mr-3">
-        <%= render 'public/shared/search' %>
+      <div class="col-8 mx-auto">
+        <div class="d-flex justify-content-end mt-3 mr-3 mb-5">
+          <%= render 'public/shared/search' %>
+        </div>
       </div>
       <%= yield %>
     </div>
