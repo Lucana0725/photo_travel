@@ -2,7 +2,9 @@
 
 class Public::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
+  before_action :user_state, only: [:create]
   layout 'sessions'
+
   def after_sign_in_path_for(resource)
     travels_path
   end
@@ -16,6 +18,18 @@ class Public::SessionsController < Devise::SessionsController
     user = User.guest
     sign_in user
     redirect_to travels_path, notice: 'ゲストユーザーとしてログインしました。'
+  end
+
+
+  protected
+
+  # ユーザーが退会しているかどうか判断するメソッド
+  def user_state
+    @user = User.find_by(email: params[:user][:email])  # 入力されたEmailアドレスからアカウントを1件取得
+    return if !@user  # アカウントを取得できなかった場合、このメソッドを終了
+    if @user.valid_password?(params[:user][:password]) && @user.is_deleted == true  # 上二つがtrueだったら新規登録画面へ遷移させる
+      redirect_to new_user_registration_path
+    end
   end
 
   # GET /resource/sign_in
