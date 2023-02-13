@@ -1,16 +1,49 @@
-<h2>検索結果 "<%= @keyword %>"</h2>
+<div class="row justify-content-center">
+  <div class="col-8">
+    <h2>キーワード検索結果 "<%= @keyword %>"</h2>
 
-<% @travels.each do |travel| %>  <!--travels#searchで定義した@travelsを使用-->
-  <div>
-    <%= link_to user_path(travel.user.id) do %>
-      <%= image_tag travel.user.get_profile_image(100, 100) %>
-      <%= travel.user.nickname %>
-    <% end %>
+    <div class="row justify-content-center">
+      <div class="col-5 p-3" style="background-color:rgba(255, 255, 255, 0.5);">
+        <% @travels.each_with_index do |travel, i| %>
+          <div class="<% if i != 0 %> pt-5 <% end %> <% if i != @travels.size - 1 %> pb-5 <% end %>" style="<% if i != @travels.size - 1  %> border-bottom:1px solid #aaa; <% end %>">
+            <div>
+              <%= link_to travel_path(travel) do %>
+                <%= image_tag travel.get_image(700, 700), class: "w-100" %>
+              <% end %>
+            </div>
+            <div>
+              <%= link_to user_path(travel.user.id) do %>
+                  <%= image_tag travel.user.get_profile_image(35, 35), class: "rounded-circle" %>
+                  <%= travel.user.nickname %>
+              <% end %>
+            </div>
+            <div>
+              <%= link_to travel_path(travel) do %>
+                <%= travel.title %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+    </div>
   </div>
-  <div>
-    <%= link_to travel_path(travel.id) do %>
-      <%= image_tag travel.get_image(700, 700) %></br>
-      <%= travel.title %>
-    <% end %>
-  </div>
-<% end %>
+</div>
+
+
+<!--<h2>検索結果 "<%= @keyword %>"</h2>-->
+
+<!--<% @travels.each do |travel| %>  <!--travels#searchで定義した@travelsを使用-->-->
+<!--  <div>-->
+<!--    <%= link_to user_path(travel.user.id) do %>-->
+<!--      <%= image_tag travel.user.get_profile_image(100, 100) %>-->
+<!--      <%= travel.user.nickname %>-->
+<!--    <% end %>-->
+<!--  </div>-->
+<!--  <div>-->
+<!--    <%= link_to travel_path(travel.id) do %>-->
+<!--      <%= image_tag travel.get_image(700, 700) %></br>-->
+<!--      <%= travel.title %>-->
+<!--    <% end %>-->
+<!--  </div>-->
+<!--<% end %>-->
