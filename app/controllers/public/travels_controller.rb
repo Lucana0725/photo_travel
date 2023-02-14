@@ -17,7 +17,7 @@ class Public::TravelsController < ApplicationController
 
   def index
     # @travels = Travel.all
-    @travels = Travel.order('created_at DESC')  # 投稿を新しい順に並べる
+    @travels = Travel.order('created_at DESC').page(params[:page]).per(3)  # 投稿を新しい順に並べる
   end
 
   def show
