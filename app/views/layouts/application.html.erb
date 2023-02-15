@@ -19,6 +19,11 @@
     <div class="general">
       <%= flash[:notice]%>
       <%= flash[:alert] %>
+      <div class="col-8 mx-auto">
+        <div class="d-flex justify-content-end mt-3 mr-3 mb-5">
+          <%= render 'public/shared/search' %>
+        </div>
+      </div>
       <%= yield %>
     </div>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY'] %>&callback=initMap" async defer></script>  <!--ここに記述することで全てのページでGoogleMapを読み込むことができるようになる-->

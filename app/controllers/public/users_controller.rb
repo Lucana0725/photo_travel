@@ -32,7 +32,7 @@ class Public::UsersController < ApplicationController
     reset_session
     redirect_to root_path
   end
-  
+
   # ゲストユーザーの退会禁止
   def check_guest
     user = current_user
@@ -47,11 +47,12 @@ class Public::UsersController < ApplicationController
     favorites = Favorite.where(user_id: @user.id).pluck(:travel_id)
     @favorite_travels = Travel.find(favorites)
   end
-  
+
   # ユーザー検索用アクション
   def search
     if params[:keyword].present?
       @users = User.where('nickname LIKE ?', "%#{params[:keyword]}%")
+      # @users = User.where("(nickname =  Like ?) OR (is_deleted = ?)", "%#{params[:keyword]}%", false)
       @keyword = params[:keyword]
     else
       @users = User.all

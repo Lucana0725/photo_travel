@@ -17,7 +17,7 @@ class Public::TravelsController < ApplicationController
 
   def index
     # @travels = Travel.all
-    @travels = Travel.order('created_at DESC')  # 投稿を新しい順に並べる
+    @travels = Travel.order('created_at DESC').page(params[:page]).per(3)  # 投稿を新しい順に並べる
   end
 
   def show
@@ -26,7 +26,7 @@ class Public::TravelsController < ApplicationController
     @lng = @travel.longitude
     gon.lat = @lat
     gon.lng = @lng
-    
+
     @comment = Comment.new  # コメント新規作成用
     @comments = @travel.comments  # 紐づくコメントを全て表示する用
   end
@@ -36,7 +36,7 @@ class Public::TravelsController < ApplicationController
     @travel.destroy
     redirect_to travels_path
   end
-  
+
   def search
     if params[:keyword].present?
       @travels = Travel.where('body LIKE ?', "%#{params[:keyword]}%")
@@ -46,9 +46,9 @@ class Public::TravelsController < ApplicationController
     end
   end
 
-  
+
   protected
-  
+
   def travel_params
     params.require(:travel).permit(:user_id, :image, :title, :body, :latitude, :longitude)
   end
