@@ -8,10 +8,12 @@ class Public::TravelsController < ApplicationController
     @user = current_user  # ユーザー情報の保持
     @travel = Travel.new(travel_params)
     @travel.user_id = current_user.id  # アソシエーションの関係で@travelにはユーザーが必要なので
-    if @travel.save!
+    # byebug
+    if @travel.save
       redirect_to travels_path
     else
-      redirect_to new_travel_path
+      # redirect_to new_travel_path
+      render :new
     end
   end
 
