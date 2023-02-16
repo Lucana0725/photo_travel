@@ -79,15 +79,15 @@
           <% if user_signed_in? %>  <!--未ログインではいいね！はできないようにする-->
             <% if @travel.favorited_by?(current_user) %>  <!--いいねしていれば取消-->
               <%= link_to travel_favorites_path(@travel), method: :delete do %>
-                ♥ <%= @travel.favorites.count %>いいね！
+                <i class="far fa-star"></i> <%= @travel.favorites.count %>いいね！
               <% end %>  <!--link_toのend-->
             <% else %>
               <%= link_to travel_favorites_path(@travel), method: :post do %>  <!--いいねしていなければ付与-->
-                ♥ <%= @travel.favorites.count %>いいね！
+                <i class="far fa-star"></i> <%= @travel.favorites.count %>いいね！
               <% end %>  <!--link_toのend-->
             <% end %>  <!--いいねトグルのifのend-->
           <% else %>  <!--ログイン有無のifのelse-->
-            ♥ <%= @travel.favorites.count %>いいね！
+            <i class="far fa-star"></i> <%= @travel.favorites.count %>いいね！
           <% end %>  <!--ログイン有無のifのend-->
           </div>
         </div>

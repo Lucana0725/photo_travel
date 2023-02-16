@@ -31,7 +31,7 @@
               <%= link_to travel_path(travel.id) do %>
                 <%= travel.title %>
               <% end %>
-              <span>♥ <%= travel.favorites.count %>いいね！</span>
+              <span><i class="far fa-star"></i> <%= travel.favorites.count %>いいね！</span>
               <span><%= travel.comments.count %> コメント</span>
             </div>
         </div>
