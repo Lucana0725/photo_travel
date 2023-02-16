@@ -101,7 +101,7 @@
             <% @comments.each do |comment| %>
               <div class="d-flex card-body">
                 <div class="d-flex align-items-center">
-                  <%= link_to user_path(@travel.user.id) do %>
+                  <%= link_to user_path(comment.user.id) do %>
                     <div class="text-center">
                       <%= image_tag comment.user.get_profile_image(72, 72), class: "rounded-circle" %>  <!--コメント主のプロフィール画像-->
                     </div>
