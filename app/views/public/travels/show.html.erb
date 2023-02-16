@@ -20,7 +20,7 @@
           <% if @travel.user_id == current_user.id %> <!--ログインユーザーは自分の投稿以外は削除できないようにする-->
             <div class="text-right" style="line-height:56px;">
               <%= link_to travel_path, method: :delete, "data-confirm" => "投稿を削除します。よろしいですか？", class: "btn btn-danger" do %>
-                投稿を削除
+                <i class="fas fa-trash-alt"></i>
               <% end %>
             </div>
           <% end %>
@@ -118,7 +118,9 @@
                 <!--コメント主であれば、コメントを削除できるようにする-->
                 <div class="comment-delete ml-auto">
                   <% if comment.user == current_user %>
-                    <%= link_to "削除", travel_comment_path(comment.travel, comment), method: :delete, "data-confirm" => "コメントを削除します。よろしいですか？", class: "btn btn-danger btn-sm" %>
+                    <%= link_to travel_comment_path(comment.travel, comment), method: :delete, "data-confirm" => "コメントを削除します。よろしいですか？", class: "btn btn-danger btn-sm" do %>
+                      <i class="fas fa-trash-alt"></i>
+                    <% end %>
                   <% end %>
                 </div>
               </div>
