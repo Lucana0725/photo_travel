@@ -123,6 +123,16 @@
             <% end %>
           </div>
         <% end %>
+        
+        <!--コメント空欄バリデーションエラー時のエラーメッセージ-->
+        <% if @comment.errors.any? %>
+          <%= @comment.errors.count %>件のエラーが発生しました。
+          <ul>
+            <% @comment.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+            <% end %>
+          </ul>
+        <% end %>
 
         <!--コメントの送信-->
         <% if user_signed_in? %>  <!--未ログイン時はコメントできないようにする-->
