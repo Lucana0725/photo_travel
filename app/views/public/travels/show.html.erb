@@ -4,9 +4,9 @@
     <div class="row">
       <div class="col-12 col-md-2">
         <!--一つ前のページに戻る(投稿一覧に戻るのではなく、travels#indexからtravels#showへアクセスしたらtravels#indexへ、users#showからtravels#showへアクセスしたらusers#showへ戻る)-->
-        <%= link_to :back do %>
-          <span class="go-back" style="font-size:20px; line-height:56px;"><i class="fas fa-chevron-left"></i>  Go Back</span>
-        <% end %>
+        <!--<%= link_to :back do %>-->
+        <!--  <span class="go-back" style="font-size:20px; line-height:56px;"><i class="fas fa-chevron-left"></i>  Go Back</span>-->
+        <!--<% end %>-->
       </div>
 
       <div class="col-12 col-md-8 text-center">
@@ -20,7 +20,7 @@
           <% if @travel.user_id == current_user.id %> <!--ログインユーザーは自分の投稿以外は削除できないようにする-->
             <div class="text-right" style="line-height:56px;">
               <%= link_to travel_path, method: :delete, "data-confirm" => "投稿を削除します。よろしいですか？", class: "btn btn-danger" do %>
-                投稿を削除
+                <i class="fas fa-trash-alt"></i>
               <% end %>
             </div>
           <% end %>
@@ -79,14 +79,16 @@
           <% if user_signed_in? %>  <!--未ログインではいいね！はできないようにする-->
             <% if @travel.favorited_by?(current_user) %>  <!--いいねしていれば取消-->
               <%= link_to travel_favorites_path(@travel), method: :delete do %>
-                ♥ <%= @travel.favorites.count %>いいね！
-              <% end %>
+                <i class="far fa-star"></i> <%= @travel.favorites.count %>いいね！
+              <% end %>  <!--link_toのend-->
             <% else %>
               <%= link_to travel_favorites_path(@travel), method: :post do %>  <!--いいねしていなければ付与-->
-                ♥ <%= @travel.favorites.count %>いいね！
-              <% end %>
-            <% end %>
-          <% end %>
+                <i class="far fa-star"></i> <%= @travel.favorites.count %>いいね！
+              <% end %>  <!--link_toのend-->
+            <% end %>  <!--いいねトグルのifのend-->
+          <% else %>  <!--ログイン有無のifのelse-->
+            <i class="far fa-star"></i> <%= @travel.favorites.count %>いいね！
+          <% end %>  <!--ログイン有無のifのend-->
           </div>
         </div>
 
@@ -101,7 +103,7 @@
             <% @comments.each do |comment| %>
               <div class="d-flex card-body">
                 <div class="d-flex align-items-center">
-                  <%= link_to user_path(@travel.user.id) do %>
+                  <%= link_to user_path(comment.user.id) do %>
                     <div class="text-center">
                       <%= image_tag comment.user.get_profile_image(72, 72), class: "rounded-circle" %>  <!--コメント主のプロフィール画像-->
                     </div>
@@ -116,12 +118,24 @@
                 <!--コメント主であれば、コメントを削除できるようにする-->
                 <div class="comment-delete ml-auto">
                   <% if comment.user == current_user %>
-                    <%= link_to "削除", travel_comment_path(comment.travel, comment), method: :delete, "data-confirm" => "コメントを削除します。よろしいですか？", class: "btn btn-danger btn-sm" %>
+                    <%= link_to travel_comment_path(comment.travel, comment), method: :delete, "data-confirm" => "コメントを削除します。よろしいですか？", class: "btn btn-danger btn-sm" do %>
+                      <i class="fas fa-trash-alt"></i>
+                    <% end %>
                   <% end %>
                 </div>
               </div>
             <% end %>
           </div>
+        <% end %>
+
+        <!--コメント空欄バリデーションエラー時のエラーメッセージ-->
+        <% if @comment.errors.any? %>
+          <%= @comment.errors.count %>件のエラーが発生しました。
+          <ul>
+            <% @comment.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+            <% end %>
+          </ul>
         <% end %>
 
         <!--コメントの送信-->

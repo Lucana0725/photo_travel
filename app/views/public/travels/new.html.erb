@@ -6,6 +6,13 @@
 
     <div class="row">
       <div class="col-12 col-md-4 pl-5 pr-5">
+        <% if @travel.errors.any? %>
+          <ul>
+          <% @travel.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        <% end %>
         <%= form_with model: @travel, url: travels_path, method: :post do |f| %>
           <div>
             <%= f.label :image, "画像" %></br>

@@ -14,7 +14,11 @@
                   <%= f.label :profile_image, "プロフィール画像" %>
                 </div>
                 <div class="col-12 col-md-6 pr-5">
-                  <%= f.file_field :profile_image, accept: 'image/*' %>
+                  <% if current_user.email != 'guest@example.com' %>
+                    <%= f.file_field :profile_image, accept: 'image/*' %>
+                  <% else %>
+                    ゲストユーザーは変更できません
+                  <% end %>
                 </div>
               </div>
             </div>
@@ -24,7 +28,11 @@
                   <%= f.label :nickname, "ニックネーム" %>
                 </div>
                 <div class="col-12 col-md-6 pr-5">
-                  <%= f.text_field :nickname, class: "form-control" %>
+                  <% if current_user.email != 'guest@example.com' %>
+                    <%= f.text_field :nickname, class: "form-control" %>
+                  <% else %>
+                    <%= @user.nickname %>
+                  <% end %>
                 </div>
               </div>
             </div>
@@ -35,7 +43,9 @@
                   <%= f.label :introduction, "自己紹介文" %>
                 </div>
                 <div class="col-12 col-md-6 pr-5">
-                  <%= f.text_area :introduction, rows: 3, class: "form-control" %>
+                  <% if current_user.email != 'guest@example.com' %>
+                    <%= f.text_area :introduction, rows: 3, class: "form-control" %>
+                  <% end %>
                 </div>
               </div>
             </div>
@@ -45,7 +55,11 @@
                   <%= link_to "退会する", unsubscribe_path, class: "btn btn-danger w-50" %>
                 </div>
                 <div class="col-12 col-lg-6 mt-3 mt-lg-0 text-center">
-                  <%= f.submit "変更を保存する", class: "btn btn-success w-50" %>
+                  <% if current_user.email != "guest@example.com" %>
+                    <%= f.submit "変更を保存する", class: "btn btn-success w-50" %>
+                  <% else %>
+                    <button class="btn btn-success" disabled>変更を保存する</button>
+                  <% end %>
                 </div>
               </div>
             </div>
